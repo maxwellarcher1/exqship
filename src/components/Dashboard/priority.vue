@@ -334,7 +334,7 @@ import axios from 'axios'
 
 // import domtoimage from 'dom-to-image-improved'
 import domtoimage from 'dom-to-image'
-// import Canvg from 'canvg'
+// // import Canvg from 'canvg'
 // import domtoimage from 'dom-to-image-chrome-fix-retina'
 // import 'svg2pdf.js'
 import { jsPDF } from "jspdf"
@@ -542,7 +542,8 @@ export default {
             let label_size = this.size
 
             var options = {
-                quality: 0.98,                 
+                quality: 0.98,
+                         
             };
             
             let pdfFilename = this.senderInfo.fullName
