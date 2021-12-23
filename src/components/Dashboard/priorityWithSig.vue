@@ -109,7 +109,7 @@
                             aria-label="Default select example"
                             ref="tracking"
                           >
-                            <option v-for="(n, index) in trackingList" :value="n.priority" :key="index" :selected="index === 0">{{ n.express_priority }}</option>
+                            <option v-for="(n, index) in trackingList" :value="n.priority_with_sig" :key="index" :selected="index === 0">{{ n.priority_with_sig }}</option>
                         </select>
                         </div>
                         <div>{{tracking}}</div>
@@ -189,7 +189,6 @@
                                 <input class="form-check-input" type="radio" name="exampleRadios"  value ="letter" v-model="size" @click="saveLabelLetterSize" id="flexSwitchCheck" :checked = !checkSize() >
                                 <label class="form-check-label" for="flexSwitchCheckDefault">8x11.5</label>
                             </div>
-                            <div>{{ size }}</div>
                         </div>
                     </div>
                 </div>
@@ -201,9 +200,9 @@
     <!-- Modal -->
 <div class="modal fade border-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding: 20px;">
   <div class="modal-dialog"  >
-    <div class="modal-content border-0 rounded-0" style="width:505px; "  >
-          <div id="test" style= "width: 505px">
-                <img :src="require('../../assets/pexpress.jpg')"> 
+    <div class="modal-content border-0 rounded-0" style="width:506px; "  >
+          <div id="test" style= "width: 506px">
+                <img :src="require('../../assets/priorwithsig.jpg')"> 
                 <div style="all: initial;">
                  <div style="position: absolute; top: 186px; left: 10px; right: 180px; text-transform: uppercase; font-size: 14pt; font-weight: 500" >
                     <div>{{senderInfo.fullName}}</div>
@@ -330,7 +329,7 @@ export default {
         headers: { 'Authorization': `Token ${token}`}
              };
 
-      axios.get(`http://127.0.0.1:8000/express-tracking-list/`, config )
+      axios.get(`http://127.0.0.1:8000/psig-tracking-list/`, config )
         .then(res => {
             console.log(res.data)
             this.trackingList = res.data
@@ -672,7 +671,7 @@ export default {
 }
 
 .accordion-button {
-    background: #47a4a5;
+    background: #79aec8;
     color: #fff
 }
 
@@ -681,8 +680,6 @@ export default {
     border-radius: 5px; 
     color: white
 }
-
-
 
 .btn-save-small {
     width: 10px; 

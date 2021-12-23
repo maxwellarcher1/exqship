@@ -32,7 +32,7 @@
                     </div>
                     <div class="card-body text-primary">
                         <h5 class="card-title">Tracking Left</h5>
-                        <span class="badge bg-secondary d-flex justify-content-center mt-4 mb-2"><h5>200</h5></span>
+                        <span class="badge bg-secondary d-flex justify-content-center mt-4 mb-2"><h5>{{sigPriorityTrackingLeft}}</h5></span>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,8 @@ export default {
     data(){
         return {
             priorityTrackingLeft: '',
-            expressPriorityTrackingLeft : ''
+            expressPriorityTrackingLeft : '',
+            sigPriorityTrackingLeft: ''
         }
     },
     created(){
@@ -72,10 +73,21 @@ export default {
             console.log(err)
         })
 
+
         // express
         axios.get(`http://127.0.0.1:8000/express-tracking-count/`, config)
         .then(res => {
             this.expressPriorityTrackingLeft = res.data.pcountexp
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+
+        // priority with sig
+        axios.get(`http://127.0.0.1:8000/psig-tracking-count/`, config)
+        .then(res => {
+            this.sigPriorityTrackingLeft = res.data.psigcount
         })
         .catch(err => {
             console.log(err)

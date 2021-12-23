@@ -1,7 +1,6 @@
 <template>
     <div>
      <div class="container">
-        
        <div class="row offset-1">
              <div class="col-md-6">  
                  <div class="card" style="width: 18rem;">
@@ -40,7 +39,45 @@
                 </div> 
             </div> 
         </div> 
+        <div class="row offset-1 mt-5">
+             <div class="col-md-6">  
+                 <div class="card" style="width: 18rem;">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                     <form action="" @submit.prevent="onSubmitPriorityWithSig">
+                        <div class="card-body ">
+                            <h5 class="card-title">Priority With Sig Tracking</h5>
+                            <div class="mt-4 mb-3">
+                                <span class="badge bg-secondary d-flex justify-content-center"><h5>200</h5></span>
+                            </div>
+                            <label for="" class="form-label fs-6">Upload Tracking:</label>
+                            <input type="file" accept=".csv"  id="file" ref="priorityWithSigFile" v-on:change="handleSigPriorityFileUpload()" > 
+                            <div class="d-flex justify-content-center">
+                                <button class="btn-primary mt-3 " type="submit" style="width: 120px; height: 40px; color: white; border-radius: 5px">Submit</button>
+                            </div> 
+                        </div>
+                    </form>
+                </div> 
+            </div> 
+           <div class="col-md-6">
+                <div class="card" style="width: 18rem;">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                     <form action="" @submit.prevent="onSubmitExpress">
+                        <div class="card-body ">
+                            <h5 class="card-title">Priority Express With Sig Tracking</h5>
+                            <div class="mt-4 mb-3">
+                                <span class="badge bg-secondary d-flex justify-content-center"><h5>200</h5></span>
+                            </div>
+                            <label for="" class="form-label fs-6">Express With Sig Tracking:</label>
+                            <input type="file" accept=".csv"  id="file" ref="expressfile" v-on:change="handleExpressFileUpload()" > 
+                            <div class="d-flex justify-content-center">
+                                <button class="btn-primary mt-3 " type="submit" style="width: 120px; height: 40px; color: white; border-radius: 5px">Submit</button>
+                            </div> 
+                        </div>
+                    </form> 
+                </div> 
+            </div> 
         </div> 
+    </div> 
        
     </div>
 </template>
@@ -50,7 +87,8 @@ export default {
     data(){
         return {
             file : '',
-            expressFile : ''
+            expressFile : '',
+            priorityWithSigFile : ''
         }
     },
     methods : {
@@ -59,6 +97,9 @@ export default {
         },
         handleExpressFileUpload(){
              this.expressFile = this.$refs.expressfile.files[0];   
+        },
+         handleSigPriorityFileUpload(){
+             this.priorityWithSigFile = this.$refs.priorityWithSigFile.files[0];   
         },
         onSubmitPriority(){
             let token = this.$store.getters.getToken;
@@ -96,6 +137,25 @@ export default {
             console.log('ki-exp')
             
             axios.post(`http://127.0.0.1:8000/upload-express/`, formData, config)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+      }, 
+       onSubmitPriorityWithSig(){
+            let token = this.$store.getters.getToken;
+            const config = {
+                 headers: { 'Authorization': `Token ${token}`}
+                };
+            let formData = new FormData()
+            formData.append('file', this.priorityWithSigFile);
+            console.log(formData)
+            console.log('ki-exp')
+            
+            axios.post(`http://127.0.0.1:8000/upload-priority-sig/`, formData, config)
             .then(res => {
                 console.log(res.data)
             })

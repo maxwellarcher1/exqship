@@ -109,7 +109,7 @@
                             aria-label="Default select example"
                             ref="tracking"
                           >
-                            <option v-for="(n, index) in trackingList" :value="n.priority" :key="index" :selected="index === 0">{{ n.express_priority }}</option>
+                            <option v-for="(n, index) in trackingList" :value="n.express_priority" :key="index" :selected="index === 0">{{ n.express_priority }}</option>
                         </select>
                         </div>
                         <div>{{tracking}}</div>
