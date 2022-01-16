@@ -281,7 +281,7 @@ export default {
     data() {
         return {
             senderInfo : {
-                data : localStorage.getItem('sender-exp') || '',
+                data : localStorage.getItem('sender-ps') || '',
                 fullName : '',
                 houseAddress : '',
                 city : '',
@@ -289,7 +289,7 @@ export default {
                 zipCode : ''
             },
             sendername : '',
-            weight: localStorage.getItem('weight-exp') || '',
+            weight: localStorage.getItem('weight-ps') || '',
             parcelWeight : '',
             tracking : '',
             receiverInfo: {
@@ -303,7 +303,7 @@ export default {
                 zipPlus4 : '',
             },
             customReceiver : {
-                data: localStorage.getItem('c-receiver-exp') || '',
+                data: localStorage.getItem('c-receiver-ps') || '',
                 fullName: '',
                 sortedData1: '',
                 sortedData2: '',
@@ -382,15 +382,15 @@ export default {
             return currentDate
         },
         checkStoredSender(){
-            let savedSender = localStorage.getItem('sender-exp')
+            let savedSender = localStorage.getItem('sender-ps')
             return savedSender   
         },
         checkStoredWeight(){
-            let savedWeight = localStorage.getItem('weight-exp')
+            let savedWeight = localStorage.getItem('weight-ps')
             return savedWeight
         },
         checkStoredCustomReceiver(){
-            let savedCustomReceiver = localStorage.getItem('c-receiver-exp')
+            let savedCustomReceiver = localStorage.getItem('c-receiver-ps')
             return savedCustomReceiver
         },
         deleteSelectedTracking(){
@@ -400,7 +400,7 @@ export default {
                 headers: { 'Authorization': `Token ${token}`}
                     };
 
-            axios.delete(`http://127.0.0.1:8000/delete/express/${selectedTracking}`, config )
+            axios.delete(`http://127.0.0.1:8000/delete/psig/${selectedTracking}`, config )
                 .then(res => {
                     console.log(res.data)
                     this.trackingList = res.data
@@ -417,14 +417,14 @@ export default {
         },
         saveSenderInfo(){
             let senderInfo = this.senderInfo.data
-            localStorage.setItem('sender-exp', senderInfo)
+            localStorage.setItem('sender-ps', senderInfo)
             // this.refreshComponent()
             this.forceUpdatenow()
             
         },
         saveCustomReceiver(){
             let customReceiver = this.customReceiver.data
-            localStorage.setItem('c-receiver-exp', customReceiver)
+            localStorage.setItem('c-receiver-ps', customReceiver)
             // this.refreshComponent()
             this.forceUpdatenow()
         },
@@ -441,26 +441,26 @@ export default {
             localStorage.removeItem('p-receiver')
         },
         deleteSaveSenderInfo(){
-            localStorage.removeItem('sender-exp')
+            localStorage.removeItem('sender-ps')
             this.senderInfo.data = ''
             // this.refreshComponent()
              this.forceUpdatenow()
            
         },
         deleteSavedCustomReceiver(){
-            localStorage.removeItem('c-receiver-exp')
+            localStorage.removeItem('c-receiver-ps')
             this.customReceiver.data = '' 
             // this.refreshComponent()
              this.forceUpdatenow()
         },
         saveWeight(){
             let weight = this.weight
-            localStorage.setItem('weight-exp', weight)
+            localStorage.setItem('weight-ps', weight)
             // this.refreshComponent()    
              this.forceUpdatenow()
         },  
         deleteWeight(){
-            localStorage.removeItem('weight-exp')
+            localStorage.removeItem('weight-ps')
             this.weight = ''
             // this.refreshComponent()
             this.forceUpdatenow()

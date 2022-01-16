@@ -64,16 +64,15 @@
                     v-for="(n, index) in allUser" :key="index">
                     <li class="list-group-item d-flex justify-content-between align-items-start ">
                         <div class="form-check">
-                        <input class="form-check-input number" type="checkbox" @click="checkClick(n.priority)" 
-                            :value="n.priority" 
-                            :name="n.priority" 
+                        <input class="form-check-input number" type="checkbox" @click="checkClick(n.priority_with_sig)" 
+                            :value="n.priority_with_sig" 
+                            :name="n.priority_with_sig" 
                             v-model="selectedTracking"
                             title="unselected" id=""
                             >
                         </div>
                         <div class="ms-2 me-auto">
-                            <div class="fw-bold">{{n.priority}}</div>
-                            {{ n.email }}
+                            <div class="fw-bold">{{n.priority_with_sig}}</div>
                         </div>
                         <!-- <button class="btn btn-primary btn-sm me-2">Edit</button>
                         <button class="btn btn-danger btn-sm">Delete</button> -->
@@ -182,7 +181,7 @@ export default {
         const config = {
             headers: { 'Authorization': `Token ${token}`}
             };
-        axios.get(`http://127.0.0.1:8000/priority/set/`, config)
+        axios.get(`http://127.0.0.1:8000/priority/sig/set/`, config)
         .then(res => {
             console.log(res.data)
             this.allUser = res.data.results
@@ -203,7 +202,7 @@ export default {
         },
         deleteCheckedTracking(){
             if(this.selectAllNumbers === true){
-                axios.delete(`http://127.0.0.1:8000/deleteallprioritynumbers`)
+                axios.delete(`http://127.0.0.1:8000/delete/all/priority/sig`)
                     .then(res => {
                         console.log(res.data)
                     })
@@ -215,7 +214,7 @@ export default {
                 if (arr.length === 0 ) {
                     alert('select a number you want to delete')
                 }else {
-                    axios.delete(`http://127.0.0.1:8000/deletefromprioritylist/${arr}`)
+                    axios.delete(`http://127.0.0.1:8000/delete/priority/sig/${arr}`)
                     .then(res => {
                         console.log(res.data)
                     })
@@ -299,6 +298,7 @@ export default {
             const config = {
             headers: { 'Authorization': `Token ${token}`}
             };
+
             axios.get(`http://127.0.0.1:8000/priority/set/?page=${page}`, config)
             .then(res => {
                 console.log(res.data)
@@ -348,13 +348,13 @@ export default {
          previousPages(){
             let allChecked = document.getElementById('select-all')
             allChecked.checked = false
+            let pageUrl = this.previousPage
 
             let token = this.$store.getters.getToken;
             const config = {
             headers: { 'Authorization': `Token ${token}`}
             };
 
-            let pageUrl = this.previousPage
             axios.get(`${pageUrl}`, config)
             .then(res => {
                 console.log(res.data)

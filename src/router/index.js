@@ -14,6 +14,9 @@ import uploadTracking from "../components/Dashboard/uploadTracking"
 import Dashboard from "../views/Dashboard.vue";
 import trackingList from "../components/Dashboard/trackingList"
 import  priorityTrackingList from "../components/Dashboard/priorityTrackingList"
+import  priorityWithSigList from "../components/Dashboard/priorityWithSigList"
+import  expressTrackingList from "../components/Dashboard/expressTrackingList"
+import  expressWithSigList from "../components/Dashboard/expressWithSigList"
 
 const routes = [
   // {
@@ -70,11 +73,11 @@ const routes = [
         ]
       },
       {
-        path: "/tracking/list", name: "trackingList",  components: { default:  trackingList}, children: [
+        path: "/number/priority", name: "trackingList",  components: { default:  trackingList}, children: [
             {path: '', component: priorityTrackingList},
-            // {path: '/priority/sig', component: priorityWithSig},
-            // {path: '/express', component: express},
-            // {path: '/express/sig', component: expressWithSig}
+            {path: '/number/priority/sig', component: priorityWithSigList},
+            {path: '/number/express', component: expressTrackingList},
+            {path: '/number/express/sig', component: expressWithSigList}
         ]
       },
       

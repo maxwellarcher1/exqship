@@ -23,37 +23,19 @@ export const authLogin = ({commit, dispatch}, authData) => {
         commit('errMessageType', err.response.statusText)
         dispatch('authStopLoading')
     })
-    
     // dispatch('authStart')
     // dispatch('authStopLoading')
 }
 
 export const authSignup = ({commit, dispatch}, authData) => {
     let userData = { 
-        name : authData.name,
+        username : authData.username,
         email : authData.email,
         password : authData.password,
-        location : authData.location,
-        number_of_employee : authData.number_of_employee,
-        description : authData.description
-    }
-    if(authData.website){
-        userData.website = authData.website
-    }
-    if(authData.facebook_link){
-        userData.facebook_link = authData.facebook_link
-    }
-    if (authData.instagram_link){
-        userData.instagram_link = authData.instagram_link
-    }
-    if(authData.linkedin_link){
-        userData.linkedin_link = authData.linkedin_link
-    }
-    if(authData.twitter_link){
-        userData.twitter_link = authData.twitter_link
+        password2 : authData.password2
     }
     dispatch('authStart')
-    axios.post('/auth/employer/register', userData)
+    axios.post('http://127.0.0.1:8000/rest-auth/registration/', userData)
     .then(res => {
         console.log(res)
         const userSignupEmail = res.data.email

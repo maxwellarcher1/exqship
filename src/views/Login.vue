@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     btnClose(){
-                this.$store.dispatch('changeStateError')
+              this.$store.dispatch('changeStateError')
             },
     onSubmit(){
           const formData = {

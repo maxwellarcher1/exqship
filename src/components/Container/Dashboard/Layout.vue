@@ -67,9 +67,9 @@
                       <span data-feather="home">Upload Tracking</span>
                     </a>
               </router-link>
-              <router-link to="/tracking/list"  tag="li"  class="nav-item" >
+              <router-link to="/number/priority"  tag="li"  class="nav-item" >
                     <a class="nav-link" href="#">
-                      <span data-feather="home">Tracking list</span>
+                      <span data-feather="home">Tracking</span>
                     </a>
               </router-link>
             <router-link to="/billing"  tag="li"  class="nav-item" >

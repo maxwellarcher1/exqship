@@ -334,7 +334,7 @@ import axios from 'axios'
 
 // import domtoimage from 'dom-to-image-improved'
 import domtoimage from 'dom-to-image'
-// // import Canvg from 'canvg'
+// import Canvg from 'canvg'
 // import domtoimage from 'dom-to-image-chrome-fix-retina'
 // import 'svg2pdf.js'
 import { jsPDF } from "jspdf"
@@ -543,7 +543,6 @@ export default {
 
             var options = {
                 quality: 0.98,
-                         
             };
             
             let pdfFilename = this.senderInfo.fullName
@@ -553,14 +552,15 @@ export default {
                 
                 if (label_size === 'a6'){
                     // //4x6 size
-                    var doc = new jsPDF("p", "in",[5.27, 7.98])
+                    var doc = new jsPDF("p", "in", [5.27, 7.98])
                     var filename = `${pdfFilename}`
                     var width = doc.internal.pageSize.getWidth();
                     var height = doc.internal.pageSize.getHeight()
                     doc.addImage(dataUrl, 'JPEG', 0, 0, width, height);
-                    doc.save(filename);
-                    // let z = changeDpiDataUrl(dataUrl, 150)
-                    // download(dataUrl, 'my-node')
+                    doc.save(filename)
+                    
+                //     // let z = changeDpiDataUrl(dataUrl, 150)
+                //     // download(dataUrl, 'my-node')
 
                 }else {
                     // Letter size
@@ -666,7 +666,6 @@ export default {
             
         },
         sortCustomReceiver(){
-        console.log('working')
            let customReceiverDataReceived = this.customReceiver.data.toUpperCase().trim().replace(/[,.]/g, '') 
            let sortcustomReceiverData = customReceiverDataReceived.split('\n')
            this.customReceiver.fullName = sortcustomReceiverData[0]

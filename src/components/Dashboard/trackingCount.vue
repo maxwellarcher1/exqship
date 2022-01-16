@@ -7,7 +7,7 @@
                         <h4>Priority</h4>
                     </div>
                     <div class="card-body text-primary">
-                        <h5 class="card-title">Tracking Left</h5>
+                        <h5 class="card-title">Numbers Left</h5>
                         <span class="badge bg-secondary d-flex justify-content-center mt-4 mb-2"><h5>{{priorityTrackingLeft}}</h5></span>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                         <h4>Express</h4>
                     </div>
                     <div class="card-body text-primary">
-                        <h5 class="card-title">Tracking Left</h5>
+                        <h5 class="card-title">Numbers Left</h5>
                         <span class="badge bg-secondary d-flex justify-content-center mt-4 mb-2"><h5>{{expressPriorityTrackingLeft}}</h5></span>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                         <h4>Priority With Sig</h4>
                     </div>
                     <div class="card-body text-primary">
-                        <h5 class="card-title">Tracking Left</h5>
+                        <h5 class="card-title">Numbers Left</h5>
                         <span class="badge bg-secondary d-flex justify-content-center mt-4 mb-2"><h5>{{sigPriorityTrackingLeft}}</h5></span>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
                         <h4>Express With Sig</h4>
                     </div>
                     <div class="card-body text-primary">
-                        <h5 class="card-title">Tracking Left</h5>
-                        <span class="badge bg-secondary d-flex justify-content-center mt-4 mb-2"><h5>200</h5></span>
+                        <h5 class="card-title">Numbers Left</h5>
+                        <span class="badge bg-secondary d-flex justify-content-center mt-4 mb-2"><h5>{{sigExpressTrackingLeft}}</h5></span>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,8 @@ export default {
         return {
             priorityTrackingLeft: '',
             expressPriorityTrackingLeft : '',
-            sigPriorityTrackingLeft: ''
+            sigPriorityTrackingLeft: '',
+            sigExpressTrackingLeft: '',
         }
     },
     created(){
@@ -92,6 +93,17 @@ export default {
         .catch(err => {
             console.log(err)
         })
+
+
+        // express with sig
+        axios.get(`http://127.0.0.1:8000/sigexpress/tracking-count/`, config)
+        .then(res => {
+            this.sigExpressTrackingLeft = res.data.pcountexpsig
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
 
 
 

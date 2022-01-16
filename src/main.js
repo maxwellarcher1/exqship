@@ -10,6 +10,13 @@ import store from './store/store'
 const app = createApp(App)
 app.use(router)
 app.use(store)
+app.mixin({
+    methods : {
+        forceUpdatenow(){
+            this.$forceUpdate()
+        },
+    }
+  })
 app.mount('#app')
  
  
