@@ -217,6 +217,8 @@
                 <div>
                     <div v-if="receiverInfo.fullName" style="position: absolute; top: 361px; left: 55px; right: 25px; text-transform: uppercase; font-size: 16pt;font-weight: 500;" >
                         <div>{{receiverInfo.fullName}}</div>
+                        <div>{{receiverInfo.otherInfo1}}</div>
+                        <div>{{receiverInfo.otherInfo2}}</div>
                         <div>{{receiverInfo.recAdd }} {{receiverInfo.apt}}</div>
                         <div>{{receiverInfo.city}} {{receiverInfo.state}} {{receiverInfo.zipCode}}-{{receiverInfo.zipPlus4}}</div>
                         <div>{{customReceiver.inputData }}</div>
@@ -295,6 +297,8 @@ export default {
             receiverInfo: {
                 data: '',
                 fullName: '',
+                otherInfo1 : '',
+                otherInfo2 : '',
                 recAdd : '',
                 state : '',
                 apt : '',
@@ -535,7 +539,15 @@ export default {
           
            this.receiverInfo.fullName = sortReceiverData[0]
            let receiverLocationNow = sortReceiverData.splice(1)
-           let receiverAddress= receiverLocationNow[0]
+           let receiverAddress = ''
+           
+           if(receiverLocationNow.length > 2){
+                this.receiverInfo.otherInfo1 = receiverLocationNow[0]
+                this.receiverInfo.otherInfo2 = receiverLocationNow[1]
+                receiverAddress= receiverLocationNow[receiverLocationNow.length-2]
+           }else {
+               receiverAddress= receiverLocationNow[receiverLocationNow.length-2]
+           }
            
            let getReceiverCityState = receiverLocationNow[receiverLocationNow.length -1]
            

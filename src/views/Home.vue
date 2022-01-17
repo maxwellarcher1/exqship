@@ -11,12 +11,13 @@
             </div>
             <div class="col-3" style="color: white">
             <ul class="nav"> 
+              <router-link to="/login"  tag="li"  class="nav-item" >
+                    <a class="nav-link" href="#" style="color: white">Dashboard</a>
+                </router-link>
                 <router-link to="/login"  tag="li"  class="nav-item" >
                     <a class="nav-link" href="#" style="color: white">Login</a>
                 </router-link>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: white">Sign up</a>
-                </li>
+               
             </ul>
             </div>
         </div>
@@ -36,10 +37,10 @@
                     Home
                 </span>
                 <span style="color: black; margin: 0 10px">
-                    Shop
+                    About
                 </span>
                 <span style="color: black; margin: 0 10px">
-                    Receive
+                    Our Services
                 </span>
                 <span style="color: black; margin: 0 10px">
                   <router-link to="/dashboard" style="color: black">
@@ -55,13 +56,13 @@
 <main>
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <!-- <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-         <img :src="require('../assets/1.jpg')"/>
+         <img :src="require('../assets/2.jpg')"/>
         <div class="container">
           <div class="carousel-caption text-start">
             <h1>Example headline.</h1>
@@ -70,7 +71,7 @@
           </div>
         </div>
       </div>
-      <div class="carousel-item">
+      <!-- <div class="carousel-item">
         <img :src="require('../assets/2.jpg')" />
         <div class="container">
           <div class="carousel-caption">
@@ -79,8 +80,8 @@
             <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
           </div>
         </div>
-      </div>
-      <div class="carousel-item">
+      </div> -->
+      <!-- <div class="carousel-item">
          <img :src="require('../assets/3.jpg')"/>
         <div class="container">
           <div class="carousel-caption text-end">
@@ -89,16 +90,16 @@
             <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
-    </button>
+    </button> -->
   </div>
 
 
@@ -111,7 +112,6 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
       <div class="col-lg-4">
-         <img :src="require('../assets/doorstep.png')" />
         <h2>Heading</h2>
         <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
         <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
@@ -156,7 +156,7 @@
          <img :src="require('../assets/doorstep.png')" />
       </div>
     </div>
-    <hr class="featurette-divider">
+    <!-- <hr class="featurette-divider">
     <div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
@@ -165,7 +165,7 @@
       <div class="col-md-5">
          <img :src="require('../assets/doorstep.png')" />
       </div>
-    </div>
+    </div> -->
 
     <hr class="featurette-divider">
 
@@ -187,7 +187,9 @@
      text-decoration: none;
  }
  
-
+.nav-link {
+  text-decoration: none;
+}
 /* Carousel base class */
 .carousel {
   margin-bottom: 4rem;
