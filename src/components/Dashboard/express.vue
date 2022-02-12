@@ -209,7 +209,6 @@
                     <div>{{senderInfo.fullName}}</div>
                     <div>{{senderInfo.houseAddress}}</div>
                     <div>{{senderInfo.city}} {{senderInfo.state}} {{senderInfo.zipCode}}</div>
-      
                 </div>  
                  <div style="position: absolute; top: 186px; right: 12px; font-size: 14pt;" >
                     <div dir="rtl">Ship Date<span>:</span>{{todayDate()}}</div>
@@ -346,6 +345,9 @@ export default {
         
     },  
     methods: {
+        forceRerender() {
+            this.$parent.forceRerender();
+        },
         forceUpdatenow(){
             this.$forceUpdate()
         },
@@ -418,7 +420,8 @@ export default {
             // window.location.reload();
             // this.ab += 1
             // console.log(this.ab)
-            this.$router.go()
+            // this.$router.go()
+            this.forceRerender()
         },
         saveSenderInfo(){
             let senderInfo = this.senderInfo.data
@@ -541,12 +544,12 @@ export default {
            this.receiverInfo.fullName = sortReceiverData[0]
            let receiverLocationNow = sortReceiverData.splice(1)
         //    let receiverAddress= receiverLocationNow[0]
-
+        
             let receiverAddress = ''
 
             if(receiverLocationNow.length > 2){
                     this.receiverInfo.otherInfo1 = receiverLocationNow[0]
-                    this.receiverInfo.otherInfo2 = receiverLocationNow[1]
+                    // this.receiverInfo.otherInfo2 = receiverLocationNow[1]
                     receiverAddress= receiverLocationNow[receiverLocationNow.length-2]
             }else {
                 receiverAddress= receiverLocationNow[receiverLocationNow.length-2]

@@ -284,7 +284,7 @@
                     <div  dir="rtl" style="padding-right: 2px; z-index: 1;">Weight<span>:</span> {{parcelWeight}} lb</div>
                 </div> 
                 <div>
-                    <div v-if="receiverInfo.fullName" style="position: absolute; top: 361px; left: 55px; right: 25px; text-transform: uppercase; font-size: 16pt;font-weight: 500;" >
+                    <div v-if="receiverInfo.fullName" style="position: absolute; top: 361px; left: 55px; right: 30px; text-transform: uppercase; font-size: 16pt;font-weight: 500;" >
                         <div>{{receiverInfo.fullName}}</div>
                         <div>{{receiverInfo.otherInfo1}}</div>
                         <div>{{receiverInfo.otherInfo2}}</div>
@@ -292,7 +292,7 @@
                         <div>{{receiverInfo.city}} {{receiverInfo.state}} {{receiverInfo.zipCode}}-{{receiverInfo.zipPlus4}}</div>
                         <div>{{customReceiver.inputData }}</div>
                     </div>  
-                    <div v-else style="position: absolute; top: 361px; left: 55px; right: 35px; text-transform: uppercase; font-size: 16pt; font-weight: 500;" >
+                    <div v-else style="position: absolute; top: 361px; left: 55px; right: 30px; text-transform: uppercase; font-size: 16pt; font-weight: 500;" >
                         <div>{{customReceiver.fullName}}</div>
                         <div>{{customReceiver.sortedData1 }} </div>
                         <div>{{customReceiver.sortedData2 }}</div>
@@ -324,13 +324,13 @@
         </div>
       </div>
       <div v-if="usedNumberMessage" class="alert alert-danger text-center" role="alert">
-            Number has been used
+        Number has been used
     </div>
     </div>
   </div>
 </div>
 </div>
-</template>
+</template> 
 <script>
 import axios from 'axios'
 
@@ -413,6 +413,9 @@ export default {
         
     },  
     methods: {
+        forceRerender() {
+            this.$parent.forceRerender();
+        },
         forceUpdatenow(){
             this.$forceUpdate()
         },
@@ -485,7 +488,8 @@ export default {
             // window.location.reload();
             // this.ab += 1
             // console.log(this.ab)
-            this.$router.go()
+            // this.$router.go()
+            this.forceRerender()
         },
         saveSenderInfo(){
             let senderInfo = this.senderInfo.data
@@ -614,7 +618,7 @@ export default {
 
            if(receiverLocationNow.length > 2){
                 this.receiverInfo.otherInfo1 = receiverLocationNow[0]
-                this.receiverInfo.otherInfo2 = receiverLocationNow[1]
+                // this.receiverInfo.otherInfo2 = receiverLocationNow[1]
                 receiverAddress= receiverLocationNow[receiverLocationNow.length-2]
            }else {
                receiverAddress= receiverLocationNow[receiverLocationNow.length-2]
@@ -691,7 +695,7 @@ export default {
            }
 
             let num = this.$refs.tracking.value.trim()
-            console.log(num)
+            
             // if (num.length < 26 ){
             //     alert('invalid tracking')
             //     return num

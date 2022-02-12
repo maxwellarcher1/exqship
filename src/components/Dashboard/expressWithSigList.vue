@@ -170,9 +170,10 @@ export default {
             showDeleteAllOption : false,
             showingTrackingNumber: 1,
             showingTotalTrackingNumber: '',
-            // disableButton: true,
-            selectAllNumbers: false
+            // disableButton: true
+            selectAllNumbers: false,
         }
+        
     },
     created(){
         let token = this.$store.getters.getToken;
@@ -194,33 +195,43 @@ export default {
         })
     },
     methods: {
+        forceRerender() {
+            this.$parent.forceRerender();
+        },
         selectAllPriorityNumbers(){
             this.selectAllNumbers = true
             this.showDeleteAllOption = false
         },
         deleteCheckedTracking(){
-            if(this.selectAllNumbers === true){
-                axios.delete(`http://127.0.0.1:8000/delete/all/express/sig`)
-                    .then(res => {
-                        console.log(res.data)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })               
+
+        // let token = this.$store.getters.getToken;
+        // const config = {
+        //     headers: { 'Authorization': `Token ${token}`}
+        // };
+        if(this.selectAllNumbers === true){
+            axios.delete(`http://127.0.0.1:8000/delete/all/express/sig` )
+                .then(res => {
+                    console.log(res.data)
+                    this.forceRerender()
+                })
+                .catch(err => {
+                    console.log(err)
+                })               
+        }else {
+            var arr = this.selectedTracking
+            if (arr.length === 0 ) {
+                alert('select a number you want to delete')
             }else {
-                var arr = this.selectedTracking
-                if (arr.length === 0 ) {
-                    alert('select a number you want to delete')
-                }else {
-                    axios.delete(`http://127.0.0.1:8000/delete/express/sig/${arr}`)
-                    .then(res => {
-                        console.log(res.data)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
-                } 
+                axios.delete(`http://127.0.0.1:8000/delete/express/sig/${arr}`)
+                .then(res => {
+                    console.log(res.data)
+                    this.forceRerender()
+                })
+                .catch(err => {
+                    console.log(err)
+                })
             } 
+        } 
         },
         checkClick(n){
             let allChecked = document.getElementById('select-all')

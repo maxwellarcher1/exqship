@@ -1,6 +1,29 @@
 <template>
     <div>
      <div class="container">
+         <div style="position: relative;">
+            <div v-if="uploadingFailed === 'Request failed with status code 400'" class="alert alert-danger alert-dismissible fade show text-center custom-alert" role="alert">
+                <span>No file is selected!</span>
+                <button class="btn-close me-5" data-bs-dismiss="alert" aria-label="Close" @click="closeBtn"></button>
+            </div>
+            <div v-else-if="uploadingFailed === 'Request failed with status code 406'" class="alert alert-danger alert-dismissible fade show text-center custom-alert" role="alert" >
+                <span>File unsupported! Only csv files are allowed</span>
+                <button class="btn-close me-5" data-bs-dismiss="alert" aria-label="Close" @click="closeBtn"></button>
+            </div>
+            <div v-else-if="apiResponse" class="alert alert-danger alert-dismissible fade show text-center custom-alert" role="alert">
+                <span>Uploading failed! Incompleted number found: {{apiResponse}}</span>
+                <button class="btn-close me-5" data-bs-dismiss="alert" aria-label="Close" @click="closeBtn"></button>
+            </div>
+            <div v-else-if="existedNumber" class="alert alert-danger text-center alert-dismissible fade show custom-alert" role="alert">
+                <span>Uploading failed! Tracking number "{{existedNumber}}" already exists  </span>
+                <button class="btn-close me-5" data-bs-dismiss="alert" aria-label="Close" @click="closeBtn"></button>
+            </div> 
+            <div v-else-if="onLoadsuccessMessage === 'success'" class="alert alert-success text-center alert-dismissible fade show custom-alert" role="alert">
+                <span>Successfully uploaded!</span>
+                <button class="btn-close me-5" data-bs-dismiss="alert" aria-label="Close" @click="closeBtnOnSuccess()"></button>
+            </div>
+        </div>
+     
        <div class="row offset-1">
              <div class="col-md-6">  
                  <div class="card" style="width: 18rem;">
@@ -11,9 +34,9 @@
                             <div class="mt-4 mb-3">
                                 <span class="badge bg-secondary d-flex justify-content-center"><h6>Total : {{priorityTrackingLeft}}</h6></span>
                             </div>
-                            <input type="file" accept=".csv"  id="file" ref="file" v-on:change="handleFileUpload()" > 
+                            <input type="file" accept=".csv"  id="file" ref="file" v-on:change="handleFileUpload()" @click="closeBtn()" > 
                             <p style="font-size: 12px">csv only</p>
-                              <div class="d-flex justify-content-center" v-if="uploading">
+                              <div class="d-flex justify-content-center" v-if="uploadingPriority">
                                 <button class="btn-primary" type="submit" style="width: 120px; height: 40px; color: white; border-radius: 5px">
                                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                                     Uploading...
@@ -35,7 +58,7 @@
                             <div class="mt-4 mb-3">
                                 <span class="badge bg-secondary d-flex justify-content-center"><h6>Total : {{expressPriorityTrackingLeft}}</h6></span>
                             </div>
-                            <input type="file" accept=".csv"  id="file" ref="expressfile" v-on:change="handleExpressFileUpload()" > 
+                            <input type="file" accept=".csv"  id="file" ref="expressfile" v-on:change="handleExpressFileUpload()" @click="closeBtn()" > 
                             <p style="font-size: 12px">csv only</p>
                               <div class="d-flex justify-content-center" v-if="uploading">
                                 <button class="btn-primary" type="submit" style="width: 120px; height: 40px; color: white; border-radius: 5px">
@@ -61,7 +84,7 @@
                             <div class="mt-4 mb-3">
                                 <span class="badge bg-secondary d-flex justify-content-center"><h6>Total : {{sigPriorityTrackingLeft}}</h6></span>
                             </div>
-                            <input type="file" accept=".csv"  id="file" ref="priorityWithSigFile" v-on:change="handleSigPriorityFileUpload()" > 
+                            <input type="file" accept=".csv"  id="file" ref="priorityWithSigFile" v-on:change="handleSigPriorityFileUpload()" @click="closeBtn()" > 
                             <p style="font-size: 12px">csv only</p>
                               <div class="d-flex justify-content-center" v-if="uploading">
                                 <button class="btn-primary" type="submit" style="width: 120px; height: 40px; color: white; border-radius: 5px">
@@ -86,9 +109,9 @@
                                 <span class="badge bg-secondary d-flex justify-content-center"><h6>Total : {{sigExpressTrackingLeft}}</h6></span>
                             </div>
                             <!-- <label for="" class="form-label fs-6">Express With Sig Tracking:</label> -->
-                            <input type="file" accept=".csv"  id="file" ref="expressWithSigFile" v-on:change="handleSigExpressPriorityFileUpload()" > 
+                            <input type="file" accept=".csv"  id="file" ref="expressWithSigFile" v-on:change="handleSigExpressPriorityFileUpload()" @click="closeBtn()" > 
                             <p style="font-size: 12px">csv only</p>
-                            <div class="d-flex justify-content-center" v-if="uploading">
+                            <div class="d-flex justify-content-center" v-if="uploadingExpressSig">
                                 <button class="btn-primary" type="submit" style="width: 120px; height: 40px; color: white; border-radius: 5px">
                                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                                     Uploading...
@@ -99,6 +122,7 @@
                             </div> 
                         </div>
                     </form> 
+                    <div>{{ onLoadsuccessMessage }}</div>
                 </div> 
             </div> 
         </div> 
@@ -108,6 +132,7 @@
 </template>
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
     data(){
         return {
@@ -119,7 +144,14 @@ export default {
             expressPriorityTrackingLeft : '',
             sigPriorityTrackingLeft: '',
             sigExpressTrackingLeft: '',
-            uploading : false
+            uploadingPriority : false,
+            uploadingExpress : false,
+            uploadingPrioritySig : false,
+            uploadingExpressSig : false,
+            uploadingFailed : '',
+            apiResponse: '',
+            onSuccess: '',
+            existedNumber: ''
         }
     },
     created(){
@@ -166,9 +198,32 @@ export default {
         })
 
     },
+    computed : {
+    ...mapGetters([
+             'onLoadsuccessMessage'
+        ]),
+  },
     methods : {
+        forceRerender() {
+            this.$store.dispatch('successMessageState')
+            this.$parent.forceRerender();
+        },
         forceUpdatenow(){
-            this.$forceUpdate()
+            // this.$forceUpdate()
+            // this.$router.go()
+            this.forceRerender()
+        },
+        closeBtn(){
+            this.$store.dispatch('initialSuccessMessageState')
+            this.apiResponse = ''
+            this.uploadingFailed = ''
+            this.onSuccess = ''
+            this.existedNumber = ''
+            
+             
+        },
+        closeBtnOnSuccess(){
+            this.$store.dispatch('initialSuccessMessageState')
         },
         handleFileUpload(){
              this.file = this.$refs.file.files[0];   
@@ -183,25 +238,35 @@ export default {
              this.expressWithSigFile = this.$refs.expressWithSigFile.files[0];   
         },
         onSubmitPriority(){
-            this.uploading = true
+            this.uploadingPriority  = true
+            this.closeBtn()
             let token = this.$store.getters.getToken;
             const config = {
                  headers: { 'Authorization': `Token ${token}`}
                 };
             let formData = new FormData()
             formData.append('file', this.file);
-            console.log(formData)
-            console.log('ki')
             
             axios.post(`http://127.0.0.1:8000/upload/`, formData, config)
             .then(res => {
                 console.log(res.data)
+                if (res.data.incomplete_number){
+                    this.apiResponse = res.data.incomplete_number
+                }else if (res.data.success){
+                    this.onSuccess = res.data.success
+                    this.forceUpdatenow()
+                }else if (res.data.existed_number){ 
+                    this.existedNumber = res.data.existed_number
+                }
+                this.uploadingPriority = false
             })
             .catch(err => {
                 console.log(err)
+                this.uploadingFailed = err.message 
+                this.uploadingPriority  = false
             })
-            this.uploading = false
-            this.forceUpdatenow()
+            // this.uploading = false
+            // this.forceUpdatenow()
             
         //   const formData = {
         //       username : this.username,
@@ -211,72 +276,112 @@ export default {
         //   this.$store.dispatch('authLogin', {username : formData.username, password : formData.password})  
       }, 
       onSubmitExpress(){
-            this.uploading = true
+            this.uploadingExpress = true
+            this.closeBtn()
             let token = this.$store.getters.getToken;
             const config = {
                  headers: { 'Authorization': `Token ${token}`}
                 };
             let formData = new FormData()
             formData.append('file', this.expressFile);
-            console.log(formData)
-            console.log('ki-exp')
-            
+          
             axios.post(`http://127.0.0.1:8000/upload-express/`, formData, config)
             .then(res => {
                 console.log(res.data)
+                if (res.data.incomplete_number){
+                    this.apiResponse = res.data.incomplete_number
+                }else if (res.data.success){
+                    this.onSuccess = res.data.success
+                    this.forceUpdatenow()
+                }else if (res.data.existed_number){ 
+                    this.existedNumber = res.data.existed_number
+                }
+                this.uploadingExpress  = false
             })
             .catch(err => {
                 console.log(err)
+                this.uploadingFailed = err.message 
+                this.uploadingExpress  = false
             })
-            this.uploading = false
-            this.forceUpdatenow()
+            // this.uploading = false
+            // this.forceUpdatenow()
 
       }, 
        onSubmitPriorityWithSig(){
-            this.uploading = true
+            this.uploadingPrioritySig  = true
+            this.closeBtn()
             let token = this.$store.getters.getToken;
             const config = {
                  headers: { 'Authorization': `Token ${token}`}
                 };
             let formData = new FormData()
             formData.append('file', this.priorityWithSigFile);
-            console.log(formData)
-            console.log('ki-exp')
             
             axios.post(`http://127.0.0.1:8000/upload-priority-sig/`, formData, config)
             .then(res => {
                 console.log(res.data)
+                if (res.data.incomplete_number){
+                    this.apiResponse = res.data.incomplete_number
+                }else if (res.data.success){
+                    this.onSuccess = res.data.success
+                    this.forceUpdatenow()
+                }else if (res.data.existed_number){ 
+                    this.existedNumber = res.data.existed_number
+                }
+                this.uploadingPrioritySig = false
             })
             .catch(err => {
                 console.log(err)
+                this.uploadingFailed = err.message
+                this.uploadingPrioritySig = false 
+
             })
-            this.uploading = false
-            this.forceUpdatenow()
+            // this.uploading = false
+            // this.forceUpdatenow()
 
       },
        onSubmitExpressPriorityWithSig(){
-            this.uploading  = true
+            this.uploadingExpressSig  = true
+            this.closeBtn()
             let token = this.$store.getters.getToken;
             const config = {
                  headers: { 'Authorization': `Token ${token}`}
                 };
             let formData = new FormData()
             formData.append('file', this.expressWithSigFile);
-            console.log(formData)
-            console.log('ki-exp')
             
             axios.post(`http://127.0.0.1:8000/upload-sig-express/`, formData, config)
             .then(res => {
-                console.log(res.data)
+                if (res.data.incomplete_number){
+                    this.apiResponse = res.data.incomplete_number
+                }else if (res.data.success){
+                    this.forceUpdatenow()
+                    this.onSuccess = res.data.success
+                }else if (res.data.existed_number){ 
+                    this.existedNumber = res.data.existed_number
+                }
+                this.uploadingExpressSig = false
             })
-            .catch(err => {
+            .catch(err => { 
                 console.log(err)
+                this.uploadingFailed = err.message 
+                this.uploadingExpressSig  = false
             })
-            this.uploading  = false
-            this.forceUpdatenow()
+            
+            // this.forceUpdatenow()
 
       },  
     }
 }
 </script>
+<style scoped>
+.custom-alert {
+    position: fixed; 
+    top: 9%; 
+    left: 0%; 
+    right: 0%; 
+    width: 100%;  
+    z-index: 1;
+}
+</style>
  

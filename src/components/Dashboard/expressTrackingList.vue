@@ -192,6 +192,9 @@ export default {
         })
     },
     methods: {
+        forceRerender() {
+            this.$parent.forceRerender();
+        },
         forceUpdatenow(){
             this.$forceUpdate()
         },
@@ -204,6 +207,7 @@ export default {
                 axios.delete(`http://127.0.0.1:8000/delete/all/express`)
                     .then(res => {
                         console.log(res.data)
+                        this.forceRerender()
                     })
                     .catch(err => {
                         console.log(err)
@@ -216,6 +220,7 @@ export default {
                     axios.delete(`http://127.0.0.1:8000/delete/express/number/${arr}`)
                     .then(res => {
                         console.log(res.data)
+                        this.forceRerender()
                     })
                     .catch(err => {
                         console.log(err)

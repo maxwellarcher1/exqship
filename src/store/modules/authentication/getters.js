@@ -22,3 +22,7 @@ export const getToken = (state) => {
 export const getVerifiedUser = (state) => {
     return state.verifedUser
 }
+export const onLoadsuccessMessage = (state) => {
+    return state.successMessage
+}
+

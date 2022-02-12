@@ -13,7 +13,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
      -->
-<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
         <div class="navbar-nav"> 
             <div class="nav-item text-nowrap" style="color: red">
               <!-- <a  style="color: red" class=" btn btn-info nav-link px-3" href="#" @click="logOut">Sign out</a> -->

@@ -10,7 +10,8 @@ const state = () =>({
     verifedUser : localStorage.getItem('verfied') || null,
     loading : false,
     userSignupEmail : localStorage.getItem('signup-email') || null,
-    errMessage : null
+    errMessage : null,
+    successMessage : null,
 });
 
 export default {

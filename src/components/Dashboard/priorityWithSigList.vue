@@ -196,6 +196,9 @@ export default {
         })
     },
     methods: {
+        forceRerender() {
+            this.$parent.forceRerender();
+        },
         selectAllPriorityNumbers(){
             this.selectAllNumbers = true
             this.showDeleteAllOption = false
@@ -205,6 +208,7 @@ export default {
                 axios.delete(`http://127.0.0.1:8000/delete/all/priority/sig`)
                     .then(res => {
                         console.log(res.data)
+                        this.forceRerender()
                     })
                     .catch(err => {
                         console.log(err)
@@ -217,6 +221,7 @@ export default {
                     axios.delete(`http://127.0.0.1:8000/delete/priority/sig/${arr}`)
                     .then(res => {
                         console.log(res.data)
+                        this.forceRerender()
                     })
                     .catch(err => {
                         console.log(err)

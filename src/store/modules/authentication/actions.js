@@ -31,7 +31,7 @@ export const authSignup = ({commit, dispatch}, authData) => {
     let userData = { 
         username : authData.username,
         email : authData.email,
-        password : authData.password,
+        password1 : authData.password1,
         password2 : authData.password2
     }
     dispatch('authStart')
@@ -42,10 +42,11 @@ export const authSignup = ({commit, dispatch}, authData) => {
         localStorage.removeItem('signup-email')
         localStorage.setItem('signup-email', userSignupEmail)
         dispatch('authStopLoading')
-        router.push('/email/verification')
+        // router.push('/email/verification')
         
     })
     .catch(err => {
+        console.log(err.message)
         commit('authFail', err)
         commit('errMessageType', err.message)
         dispatch('authStopLoading')
@@ -93,4 +94,15 @@ export const authLogOut = ({commit, dispatch}) => {
             dispatch('logout')
             commit('authLogout')                 
     }
+
+
+export const successMessageState = ({commit}) =>{
+    commit('successMessageType')
+}
+
+export const initialSuccessMessageState = ({commit}) =>{
+    commit('initialSuccessMessageType')
+}
+
+
 

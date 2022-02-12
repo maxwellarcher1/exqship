@@ -345,6 +345,9 @@ export default {
         
     },  
     methods: {
+        forceRerender() {
+            this.$parent.forceRerender();
+        },
         forceUpdatenow(){
             this.$forceUpdate()
         },
@@ -417,7 +420,8 @@ export default {
             // window.location.reload();
             // this.ab += 1
             // console.log(this.ab)
-            this.$router.go()
+            // this.$router.go()
+            this.forceRerender()
         },
         saveSenderInfo(){
             let senderInfo = this.senderInfo.data
@@ -543,7 +547,7 @@ export default {
            
            if(receiverLocationNow.length > 2){
                 this.receiverInfo.otherInfo1 = receiverLocationNow[0]
-                this.receiverInfo.otherInfo2 = receiverLocationNow[1]
+                // this.receiverInfo.otherInfo2 = receiverLocationNow[1]
                 receiverAddress= receiverLocationNow[receiverLocationNow.length-2]
            }else {
                receiverAddress= receiverLocationNow[receiverLocationNow.length-2]

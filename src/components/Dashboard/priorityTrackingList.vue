@@ -197,15 +197,20 @@ export default {
         })
     },
     methods: {
+        forceRerender() {
+            this.$parent.forceRerender();
+        },
         selectAllPriorityNumbers(){
             this.selectAllNumbers = true
             this.showDeleteAllOption = false
         },
         deleteCheckedTracking(){
+            console.log(this.selectAllNumbers)
             if(this.selectAllNumbers === true){
                 axios.delete(`http://127.0.0.1:8000/deleteallprioritynumbers`)
                     .then(res => {
                         console.log(res.data)
+                        this.forceRerender()
                     })
                     .catch(err => {
                         console.log(err)
@@ -218,6 +223,7 @@ export default {
                     axios.delete(`http://127.0.0.1:8000/deletefromprioritylist/${arr}`)
                     .then(res => {
                         console.log(res.data)
+                        this.forceRerender()
                     })
                     .catch(err => {
                         console.log(err)

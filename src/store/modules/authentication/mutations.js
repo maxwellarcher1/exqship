@@ -31,3 +31,11 @@ export const removeStateError = (state) => {
 export const errMessageType = (state, errType) => {
     state.errMessage = errType
 }
+
+export const successMessageType = (state) => {
+    state.successMessage = 'success'
+}
+
+export const initialSuccessMessageType = (state) => {
+    state.successMessage = null
+}
