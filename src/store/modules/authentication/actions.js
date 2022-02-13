@@ -3,7 +3,7 @@ import router from '../../../router'
 
 export const authLogin = ({commit, dispatch}, authData) => {
     dispatch('authStart')
-    axios.post('http://127.0.0.1:8000/rest-auth/login/', {
+    axios.post('/rest-auth/login/', {
         username : authData.username,
         password : authData.password
     })
@@ -35,7 +35,7 @@ export const authSignup = ({commit, dispatch}, authData) => {
         password2 : authData.password2
     }
     dispatch('authStart')
-    axios.post('http://127.0.0.1:8000/rest-auth/registration/', userData)
+    axios.post('/rest-auth/registration/', userData)
     .then(res => {
         console.log(res)
         const userSignupEmail = res.data.email

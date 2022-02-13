@@ -36,7 +36,9 @@
                             
                          </div>
                           <div class="col-4 col-auto mt-2">
-                                 <span> Showing {{currentPageNumber }} - {{allUser.length * currentPageNumber }}  of {{count }}</span>
+                                <span v-if="currentPageNumber === 1 "> Showing {{currentPageNumber }} - {{allUser.length}}  of {{count }}</span>
+                                <span v-else-if="lastPageNumber === currentPageNumber"> Showing {{count - allUser.length }} - {{ count }}  of {{count }}</span>
+                                <span v-else> Showing {{ (currentPageNumber -1) * 50 }} - {{allUser.length * currentPageNumber }}  of {{count }}</span>
                             </div>
                          <div class="col-4 col-auto ">
                          <div class="dropdown ">
@@ -93,12 +95,12 @@
                                 </a> 
                             </li>
                         </span>
-                        <span v-if="(lastPageNumber -3 < currentPageNumber)">
+                        <span v-if="(lastPageNumber -3 < currentPageNumber) && (currentPageNumber >= 3)">
                             <li class="page-item" type="button"><a class="btn page-link" >...</a></li>
-                        </span> 
-                        <span v-if="currentPageNumber == lastPageNumber">
-                                <li class="page-item " type="button"><a class="btn page-link" >{{currentPageNumber -2}}</a></li>
                         </span>
+                        <!-- <span v-if="currentPageNumber == lastPageNumber">
+                                <li class="page-item " type="button"><a class="btn page-link" >{{currentPageNumber -2}}</a></li>
+                        </span> -->
                         <span v-if="currentPageNumber !== 1 ">
                                 <li class="page-item " type="button"><a class="btn page-link"  @click="goToNextPage(currentPageNumber - 1)">{{currentPageNumber -1}}</a></li>
                         </span>
@@ -177,7 +179,7 @@ export default {
         const config = {
             headers: { 'Authorization': `Token ${token}`}
             };
-        axios.get(`http://127.0.0.1:8000/express/set/`, config)
+        axios.get(`/express/set/`, config)
         .then(res => {
             console.log(res.data)
             this.allUser = res.data.results
@@ -204,7 +206,7 @@ export default {
         },
         deleteCheckedTracking(){
             if(this.selectAllNumbers === true){
-                axios.delete(`http://127.0.0.1:8000/delete/all/express`)
+                axios.delete(`/delete/all/express`)
                     .then(res => {
                         console.log(res.data)
                         this.forceRerender()
@@ -217,7 +219,7 @@ export default {
                 if (arr.length === 0 ) {
                     alert('select a number you want to delete')
                 }else {
-                    axios.delete(`http://127.0.0.1:8000/delete/express/number/${arr}`)
+                    axios.delete(`/delete/express/number/${arr}`)
                     .then(res => {
                         console.log(res.data)
                         this.forceRerender()
@@ -298,7 +300,7 @@ export default {
             let allChecked = document.getElementById('select-all')
             allChecked.checked = false
 
-            axios.get(`http://127.0.0.1:8000/priority/set/?page=${page}`)
+            axios.get(`/priority/set/?page=${page}`)
             .then(res => {
                 console.log(res.data)
                 this.allUser = res.data.results

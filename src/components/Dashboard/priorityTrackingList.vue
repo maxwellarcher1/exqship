@@ -36,8 +36,10 @@
                             
                          </div>
                           <div class="col-4 col-auto mt-2">
-                                 <span> Showing {{currentPageNumber }} - {{allUser.length * currentPageNumber }}  of {{count }}</span>
-                            </div>
+                            <span v-if="currentPageNumber === 1 "> Showing {{currentPageNumber }} - {{allUser.length}}  of {{count }}</span>
+                            <span v-else-if="lastPageNumber === currentPageNumber"> Showing {{count - allUser.length }} - {{ count }}  of {{count }}</span>
+                            <span v-else> Showing {{ (currentPageNumber -1) * 50 }} - {{allUser.length * currentPageNumber }}  of {{count }}</span>
+                        </div>
                          <div class="col-4 col-auto ">
                          <div class="dropdown ">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -98,12 +100,13 @@
                                 </a> 
                             </li>
                         </span>
-                        <span v-if="(lastPageNumber -3 < currentPageNumber)">
+
+                        <span v-if="(lastPageNumber -3 < currentPageNumber) && (currentPageNumber >= 3)">
                             <li class="page-item" type="button"><a class="btn page-link" >...</a></li>
                         </span> 
-                        <span v-if="currentPageNumber == lastPageNumber">
+                        <!-- <span v-if="currentPageNumber == lastPageNumber">
                                 <li class="page-item " type="button"><a class="btn page-link" >{{currentPageNumber -2}}</a></li>
-                        </span>
+                        </span> -->
                         <span v-if="currentPageNumber !== 1 ">
                                 <li class="page-item " type="button"><a class="btn page-link"  @click="goToNextPage(currentPageNumber - 1)">{{currentPageNumber -1}}</a></li>
                         </span>
@@ -126,7 +129,7 @@
                        <span v-if="(currentPageNumber < lastPageNumber -2)">
                             <li class="page-item" type="button"><a class="btn page-link" >...</a></li>
                         </span> 
-                        <span v-if="!(lastPageNumber -2 < currentPageNumber)">
+                        <span v-if="!(lastPageNumber -2 < currentPageNumber) ">
                             <li class="page-item" type="button"><a class="btn page-link" @click="goToNextPage(lastPageNumber)">{{lastPageNumber}}</a></li> 
                         </span> 
                         <li class="page-item" type="button">
@@ -182,7 +185,7 @@ export default {
         const config = {
             headers: { 'Authorization': `Token ${token}`}
             };
-        axios.get(`http://127.0.0.1:8000/priority/set/`, config)
+        axios.get(`/priority/set/`, config)
         .then(res => {
             console.log(res.data)
             this.allUser = res.data.results
@@ -207,7 +210,7 @@ export default {
         deleteCheckedTracking(){
             console.log(this.selectAllNumbers)
             if(this.selectAllNumbers === true){
-                axios.delete(`http://127.0.0.1:8000/deleteallprioritynumbers`)
+                axios.delete(`/deleteallprioritynumbers`)
                     .then(res => {
                         console.log(res.data)
                         this.forceRerender()
@@ -220,7 +223,7 @@ export default {
                 if (arr.length === 0 ) {
                     alert('select a number you want to delete')
                 }else {
-                    axios.delete(`http://127.0.0.1:8000/deletefromprioritylist/${arr}`)
+                    axios.delete(`/deletefromprioritylist/${arr}`)
                     .then(res => {
                         console.log(res.data)
                         this.forceRerender()
@@ -305,7 +308,7 @@ export default {
             const config = {
             headers: { 'Authorization': `Token ${token}`}
             };
-            axios.get(`http://127.0.0.1:8000/priority/set/?page=${page}`, config)
+            axios.get(`/priority/set/?page=${page}`, config)
             .then(res => {
                 console.log(res.data)
                 this.allUser = res.data.results

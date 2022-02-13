@@ -31,12 +31,12 @@
                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
                                     <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
                                 </svg>
-                            </button>
-                           
-                            
+                            </button>                    
                          </div>
                           <div class="col-4 col-auto mt-2">
-                                 <span> Showing {{currentPageNumber }} - {{allUser.length * currentPageNumber }}  of {{count }}</span>
+                                <span v-if="currentPageNumber === 1 "> Showing {{currentPageNumber }} - {{allUser.length}}  of {{count }}</span>
+                                <span v-else-if="lastPageNumber === currentPageNumber"> Showing {{count - allUser.length }} - {{ count }}  of {{count }}</span>
+                                <span v-else> Showing {{ (currentPageNumber -1) * 50 }} - {{allUser.length * currentPageNumber }}  of {{count }}</span>
                             </div>
                          <div class="col-4 col-auto ">
                          <div class="dropdown ">
@@ -95,12 +95,12 @@
                                 </a> 
                             </li>
                         </span>
-                        <span v-if="(lastPageNumber -3 < currentPageNumber)">
+                        <span v-if="(lastPageNumber -3 < currentPageNumber) && (currentPageNumber >= 3)">
                             <li class="page-item" type="button"><a class="btn page-link" >...</a></li>
                         </span> 
-                        <span v-if="currentPageNumber == lastPageNumber">
+                        <!-- <span v-if="currentPageNumber == lastPageNumber">
                                 <li class="page-item " type="button"><a class="btn page-link" >{{currentPageNumber -2}}</a></li>
-                        </span>
+                        </span> -->
                         <span v-if="currentPageNumber !== 1 ">
                                 <li class="page-item " type="button"><a class="btn page-link"  @click="goToNextPage(currentPageNumber - 1)">{{currentPageNumber -1}}</a></li>
                         </span>
@@ -180,7 +180,7 @@ export default {
         const config = {
             headers: { 'Authorization': `Token ${token}`}
             };
-        axios.get(`http://127.0.0.1:8000/express/sig/set/`, config)
+        axios.get(`/express/sig/set/`, config)
         .then(res => {
             console.log(res.data)
             this.allUser = res.data.results
@@ -209,7 +209,7 @@ export default {
         //     headers: { 'Authorization': `Token ${token}`}
         // };
         if(this.selectAllNumbers === true){
-            axios.delete(`http://127.0.0.1:8000/delete/all/express/sig` )
+            axios.delete(`/delete/all/express/sig` )
                 .then(res => {
                     console.log(res.data)
                     this.forceRerender()
@@ -222,7 +222,7 @@ export default {
             if (arr.length === 0 ) {
                 alert('select a number you want to delete')
             }else {
-                axios.delete(`http://127.0.0.1:8000/delete/express/sig/${arr}`)
+                axios.delete(`/delete/express/sig/${arr}`)
                 .then(res => {
                     console.log(res.data)
                     this.forceRerender()
@@ -308,7 +308,7 @@ export default {
             headers: { 'Authorization': `Token ${token}`}
             };
 
-            axios.get(`http://127.0.0.1:8000/priority/set/?page=${page}`, config)
+            axios.get(`/priority/set/?page=${page}`, config)
             .then(res => {
                 console.log(res.data)
                 this.allUser = res.data.results

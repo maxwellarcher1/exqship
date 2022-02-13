@@ -122,7 +122,6 @@
                             </div> 
                         </div>
                     </form> 
-                    <div>{{ onLoadsuccessMessage }}</div>
                 </div> 
             </div> 
         </div> 
@@ -159,7 +158,7 @@ export default {
         const config = {
                 headers: { 'Authorization': `Token ${token}`}
             };
-        axios.get(`http://127.0.0.1:8000/tracking-count/`, config)
+        axios.get(`/tracking-count/`, config)
         .then(res => {
             this.priorityTrackingLeft = res.data.pcount
         })
@@ -169,7 +168,7 @@ export default {
 
 
         // express
-        axios.get(`http://127.0.0.1:8000/express-tracking-count/`, config)
+        axios.get(`/express-tracking-count/`, config)
         .then(res => {
             this.expressPriorityTrackingLeft = res.data.pcountexp
         })
@@ -179,7 +178,7 @@ export default {
 
 
         // priority with sig
-        axios.get(`http://127.0.0.1:8000/psig-tracking-count/`, config)
+        axios.get(`/psig-tracking-count/`, config)
         .then(res => {
             this.sigPriorityTrackingLeft = res.data.psigcount
         })
@@ -189,7 +188,7 @@ export default {
     
 
         // express with sig
-        axios.get(`http://127.0.0.1:8000/sigexpress/tracking-count/`, config)
+        axios.get(`/sigexpress/tracking-count/`, config)
         .then(res => {
             this.sigExpressTrackingLeft = res.data.pcountexpsig
         })
@@ -247,7 +246,7 @@ export default {
             let formData = new FormData()
             formData.append('file', this.file);
             
-            axios.post(`http://127.0.0.1:8000/upload/`, formData, config)
+            axios.post(`/upload/`, formData, config)
             .then(res => {
                 console.log(res.data)
                 if (res.data.incomplete_number){
@@ -285,7 +284,7 @@ export default {
             let formData = new FormData()
             formData.append('file', this.expressFile);
           
-            axios.post(`http://127.0.0.1:8000/upload-express/`, formData, config)
+            axios.post(`/upload-express/`, formData, config)
             .then(res => {
                 console.log(res.data)
                 if (res.data.incomplete_number){
@@ -317,7 +316,7 @@ export default {
             let formData = new FormData()
             formData.append('file', this.priorityWithSigFile);
             
-            axios.post(`http://127.0.0.1:8000/upload-priority-sig/`, formData, config)
+            axios.post(`/upload-priority-sig/`, formData, config)
             .then(res => {
                 console.log(res.data)
                 if (res.data.incomplete_number){
@@ -350,7 +349,7 @@ export default {
             let formData = new FormData()
             formData.append('file', this.expressWithSigFile);
             
-            axios.post(`http://127.0.0.1:8000/upload-sig-express/`, formData, config)
+            axios.post(`/upload-sig-express/`, formData, config)
             .then(res => {
                 if (res.data.incomplete_number){
                     this.apiResponse = res.data.incomplete_number

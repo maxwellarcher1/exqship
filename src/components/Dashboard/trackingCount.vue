@@ -66,7 +66,7 @@ export default {
         const config = {
                 headers: { 'Authorization': `Token ${token}`}
             };
-        axios.get(`http://127.0.0.1:8000/tracking-count/`, config)
+        axios.get(`/tracking-count/`, config)
         .then(res => {
             this.priorityTrackingLeft = res.data.pcount
         })
@@ -76,7 +76,7 @@ export default {
 
 
         // express
-        axios.get(`http://127.0.0.1:8000/express-tracking-count/`, config)
+        axios.get(`/express-tracking-count/`, config)
         .then(res => {
             this.expressPriorityTrackingLeft = res.data.pcountexp
         })
@@ -86,7 +86,7 @@ export default {
 
 
         // priority with sig
-        axios.get(`http://127.0.0.1:8000/psig-tracking-count/`, config)
+        axios.get(`/psig-tracking-count/`, config)
         .then(res => {
             this.sigPriorityTrackingLeft = res.data.psigcount
         })
@@ -96,7 +96,7 @@ export default {
 
 
         // express with sig
-        axios.get(`http://127.0.0.1:8000/sigexpress/tracking-count/`, config)
+        axios.get(`/sigexpress/tracking-count/`, config)
         .then(res => {
             this.sigExpressTrackingLeft = res.data.pcountexpsig
         })

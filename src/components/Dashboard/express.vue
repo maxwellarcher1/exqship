@@ -333,7 +333,7 @@ export default {
         headers: { 'Authorization': `Token ${token}`}
              };
 
-      axios.get(`http://127.0.0.1:8000/express-tracking-list/`, config )
+      axios.get(`/express-tracking-list/`, config )
         .then(res => {
             console.log(res.data)
             this.trackingList = res.data
@@ -407,7 +407,7 @@ export default {
                 headers: { 'Authorization': `Token ${token}`}
                     };
 
-            axios.delete(`http://127.0.0.1:8000/delete/express/${selectedTracking}`, config )
+            axios.delete(`/delete/express/${selectedTracking}`, config )
                 .then(res => {
                     console.log(res.data)
                     this.trackingList = res.data

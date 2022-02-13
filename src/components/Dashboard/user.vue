@@ -216,7 +216,7 @@ export default {
         }
     },
     created(){
-        axios.get(`http://127.0.0.1:8000/user-list/`)
+        axios.get(`/user-list/`)
         .then(res => {
             console.log(res.data)
             this.allUser = res.data
