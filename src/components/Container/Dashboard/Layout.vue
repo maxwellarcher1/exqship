@@ -37,7 +37,7 @@
                       <span data-feather="home">Dashboard</span>
                     </a>
             </router-link>
-             <router-link to="/user"  tag="li"  class="nav-item" >
+             <router-link v-if="checkUserRole === 'admin'" to="/user"  tag="li"  class="nav-item" >
                     <a class="nav-link" href="#">
                       <span data-feather="home">User</span>
                     </a>
@@ -80,7 +80,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">
                 <span data-feather="file-text"></span>
-                Social engagement
+                Social engagement  
                 </a>
             </li>
             <li class="nav-item">
@@ -96,6 +96,18 @@
     </div>
 </div>
 </template>
+<script>
+  import { mapGetters } from 'vuex'
+  export default {
+    computed : {
+    ...mapGetters([
+             'checkUserRole'
+        ]),
+    },
+  }
+ 
+</script>
+
 <style>
 a {
     text-decoration: none;

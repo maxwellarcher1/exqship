@@ -8,9 +8,9 @@ export const authLogin = ({commit, dispatch}, authData) => {
         password : authData.password
     })
     .then(res => {
-        console.log(res)
         const user = res.data
         localStorage.setItem('token', user.key)
+        localStorage.setItem('username', authData.username)
         commit('authSuccess', user)
         dispatch('authStopLoading')
         router.push({name: 'Dashboard'})
@@ -38,6 +38,7 @@ export const authSignup = ({commit, dispatch}, authData) => {
     axios.post('/rest-auth/registration/', userData)
     .then(res => {
         console.log(res)
+        commit('authSignUpSuccess', res.status)
         const userSignupEmail = res.data.email
         localStorage.removeItem('signup-email')
         localStorage.setItem('signup-email', userSignupEmail)
@@ -46,9 +47,18 @@ export const authSignup = ({commit, dispatch}, authData) => {
         
     })
     .catch(err => {
-        console.log(err.message)
+        console.log(err.request.response)
+        const myObj = JSON.parse(err.request.response) 
+        if (myObj["username"]){
+            commit('errMessageType', myObj["username"][0])
+        }else if (myObj["email"]){
+            commit('errMessageType', myObj["email"][0])
+        }else if (myObj["password1"]) {
+            commit('errMessageType', myObj["password1"][0])
+        }else {
+            commit('errMessageType', "Error creating a user!")
+        }
         commit('authFail', err)
-        commit('errMessageType', err.message)
         dispatch('authStopLoading')
     })
 }
@@ -103,6 +113,16 @@ export const successMessageState = ({commit}) =>{
 export const initialSuccessMessageState = ({commit}) =>{
     commit('initialSuccessMessageType')
 }
+
+export const userDeletionStatusAction = ({commit}) => {
+    commit("userDeletionStatus")
+}
+
+
+export const initialUserSignUpStatusAction = ({commit}) =>{
+    commit('initialUserSignUpStatus')
+}
+
 
 
 

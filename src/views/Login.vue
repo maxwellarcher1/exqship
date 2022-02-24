@@ -74,7 +74,6 @@ export default {
               username : this.username,
               password : this.password
           }
-          console.log(formData)
           this.$store.dispatch('authLogin', {username : formData.username, password : formData.password})  
       },  
   },

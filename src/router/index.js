@@ -10,7 +10,8 @@ import expressSigGenerator from "../components/GeneratorContainer/expressSigGene
 // import priorityWithSig from "../components/Dashboard/priorityWithSig";
 // import expressWithSig from "../components/Dashboard/expressWithSig";
 import trackingCount from "../components/Dashboard/trackingCount";
-import user from "../components/Dashboard/user";
+// import user from "../components/Dashboard/user";
+import userData from "../components/UserContainer/userData"
 import billing from "../components/Dashboard/billing";
 import Home from "../views/Home";
 import Login from "../views/Login";
@@ -70,7 +71,8 @@ const routes = [
   {
     path: "/dashboard", name: "Dashboard", component: Dashboard, children: [
       {path: '', name: "trackingCount", component: trackingCount},
-      {path: '/user', component: user},
+      {path: '/user', component: userData},
+      // {path: '/user', component: user},
       {path: "/billing", name: "billing", component: billing},
       { path: "/upload", name: "uploadTracking", component: uploadNumber},
       {

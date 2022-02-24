@@ -11,8 +11,8 @@ export const authSuccess = (state, user) => {
     state.token = user.token
 }
 
-export const authStudentSuccess = (state, token) =>{
-    state.studentToken = token
+export const authSignUpSuccess = (state, sucessfullSignUp) =>{
+    state.signUpSuccess = sucessfullSignUp
 }
 
 export const authFail = (state, error) =>{
@@ -38,4 +38,16 @@ export const successMessageType = (state) => {
 
 export const initialSuccessMessageType = (state) => {
     state.successMessage = null
+    // state.signUpSuccess = null
+    state.errMessage = null
+    state.userDeletion = false
 }
+export const userDeletionStatus = (state) => {
+    state.userDeletion = true
+}
+
+export const initialUserSignUpStatus = (state) => {
+    state.signUpSuccess = null 
+}
+
+

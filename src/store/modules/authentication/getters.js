@@ -25,4 +25,9 @@ export const getVerifiedUser = (state) => {
 export const onLoadsuccessMessage = (state) => {
     return state.successMessage
 }
-
+export const success = (state) => {
+    return state.signUpSuccess
+}
+export const userDeletionState = (state) => {
+    return state.userDeletion
+}
