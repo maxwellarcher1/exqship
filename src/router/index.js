@@ -27,6 +27,7 @@ import prioritySigList from "../components/NumberListContainer/prioritySigList"
 // import  priorityWithSigList from "../components/Dashboard/priorityWithSigList"
 // import  expressTrackingList from "../components/Dashboard/expressTrackingList"
 // import  expressWithSigList from "../components/Dashboard/expressWithSigList"
+import store from '../store/store'
 
 const routes = [
   // {
@@ -69,11 +70,18 @@ const routes = [
   //   component: billing
   // },
   {
-    path: "/dashboard", name: "Dashboard", component: Dashboard, children: [
-      {path: '', name: "trackingCount", component: trackingCount},
-      {path: '/user', component: userData},
+    path: "/dashboard", name: "dashboard", component: Dashboard, 
+        beforeEnter: (to, from, next) => {
+          if (store.state.authentication.token) {
+            next()
+          } else {
+            next('/login')
+          }
+        },children: [
+      {path: '',  component: trackingCount},
+      {path: '/user',  component: userData},
       // {path: '/user', component: user},
-      {path: "/billing", name: "billing", component: billing},
+      {path: "/billing",  component: billing},
       { path: "/upload", name: "uploadTracking", component: uploadNumber},
       {
         path: "/gen", name: "generateLabel",  components: { default:  generateLabel}, children: [
@@ -96,6 +104,8 @@ const routes = [
             {path: '/number/express/sig', component: expressSigList}
         ]
       },
+      {path: '/redirect-me', redirect: { name: 'Home'}},
+      {path: '*', redirect: '/'}
       
     ]
   },

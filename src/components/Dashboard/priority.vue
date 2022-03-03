@@ -1,5 +1,9 @@
 <template>
-<div class="test" style="position: relative;">
+<div class="test" style="position: relative;" @click="closeAlert">
+    <div v-if="errorMessage" class="alert alert-danger alert-dismissible fade show text-center custom-alert" role="alert">
+            <span>{{errorMessage}}! Please double check and try again</span>
+            <!-- <button class="btn-close me-5" data-bs-dismiss="alert" aria-label="Close" @click="closeBtn"></button> -->
+  </div>
    <form action="" @submit.prevent="onSubmit">
         <div class="row mb-5"> 
             <!-- Sender section starts -->
@@ -249,7 +253,8 @@
                                 <input class="form-check-input" type="radio" name="exampleRadios"  value ="letter" v-model="size" @click="saveLabelLetterSize" id="flexSwitchCheck" :checked = !checkSize() >
                                 <label class="form-check-label" for="flexSwitchCheckDefault">8x11.5</label>
                             </div>
-                            <div>{{ size }}</div>
+                            
+                            
                             <!-- <div class="form-check form-switch col-6">
                                 <input class="form-check-input" type="radio" name="exampleRadios" value="a4" v-model="size" id="flexSwitchCheckDisabled">
                                 <label class="form-check-label" for="flexSwitchCheckDisabled">9x11</label>
@@ -258,6 +263,15 @@
                                 <input class="form-check-input" type="radio" name="exampleRadios" value="a3" v-model="size" draggable="" id="flexSwitchCheckCheckedDisabled">
                                 <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">11X14</label>
                             </div> -->
+                        </div>
+                        <div class="row mt-3">
+                            <div>Date</div>
+                            <hr>                           
+                            <div class="col-12" style="text-align: end">
+                                <button class="btn btn-primary me-1" style="color : white"> - </button>
+                                <span>03/02</span>
+                                <button class="btn btn-primary ms-1" style="color : white"> + </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -393,10 +407,11 @@ export default {
             usedNumberMessage: '',
             loadImage : false,
             size : localStorage.getItem('letter-size') || 'a6',
+            errorMessage : ''
             
         }
     },
-    created(){
+    created(){ 
       let token = this.$store.getters.getToken;
       const config = {
         headers: { 'Authorization': `Token ${token}`}
@@ -413,6 +428,9 @@ export default {
         
     },  
     methods: {
+        closeAlert(){
+            this.errorMessage = ''
+        },
         forceRerender() {
             this.$parent.forceRerender();
         },
@@ -609,7 +627,7 @@ export default {
         //    this.senderZipCode = senderZipCode
         },
         sortReceiver(){
-           let receiverInfoReceived = this.receiverInfo.data.trim().replace(/[,.]/g, '') 
+           let receiverInfoReceived = this.receiverInfo.data.trim().replace(/[,.|#]/g, '') 
            let sortReceiverData = receiverInfoReceived.split('\n')
           
            this.receiverInfo.fullName = sortReceiverData[0]
@@ -643,12 +661,15 @@ export default {
                     explicitArray: false
                 };
                 parseString(xmlResponse, options, function (err, xmlResponseToJson) {
-                    console.log(xmlResponseToJson)
+                    // console.log(xmlResponseToJson)
+                    // console.log(xmlResponseToJson.Error.Number)
+                    // console.log(xmlResponseToJson.AddressValidateResponse.Address.Error.Description)
+
                     
                     let data = xmlResponseToJson.AddressValidateResponse.Address
 
                     if (data.Error){
-                        alert("Incorrect address!!!\nPlease check address and try again")
+                        self.errorMessage = data.Error.Description
                     }else {
                         self.receiverInfo.recAdd = data.Address2
                         self.receiverInfo.city = data.City
@@ -745,6 +766,15 @@ export default {
 *{
     font-family: Arial, Helvetica, sans-serif;
     color: #000;
+}
+
+.custom-alert {
+    position: fixed; 
+    top: 9%; 
+    left: 0%; 
+    right: 0%; 
+    width: 100%;  
+    z-index: 1;
 }
 
 .btn-save, .btn-delete {

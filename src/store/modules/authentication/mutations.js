@@ -8,7 +8,7 @@ export const authStopLoading = (state) =>{
 }
 
 export const authSuccess = (state, user) => {
-    state.token = user.token
+    state.token = user 
 }
 
 export const authSignUpSuccess = (state, sucessfullSignUp) =>{

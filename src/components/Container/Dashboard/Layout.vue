@@ -17,7 +17,7 @@
         <div class="navbar-nav"> 
             <div class="nav-item text-nowrap" style="color: red">
               <!-- <a  style="color: red" class=" btn btn-info nav-link px-3" href="#" @click="logOut">Sign out</a> -->
-            <a class="nav-link px-3" href="#">Sign out</a>
+             <a class="nav-link px-3" href="#" @click="logOut">Log Out</a>
             </div> 
          </div>
       </header>
@@ -27,7 +27,7 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse show ">
         <div class="position-sticky pt-3">
             <ul class="nav flex-column">
-              <router-link to="/"  tag="li"  class="nav-item" >
+              <router-link :to="{name : 'Home'}"  tag="li"  class="nav-item" >
                     <a class="nav-link" href="#">
                       <span data-feather="home">Home</span>
                     </a>
@@ -37,11 +37,11 @@
                       <span data-feather="home">Dashboard</span>
                     </a>
             </router-link>
-             <router-link v-if="checkUserRole === 'admin'" to="/user"  tag="li"  class="nav-item" >
+             <!-- <router-link v-if="checkUserRole === 'admin'" to="/user"  tag="li"  class="nav-item" >
                     <a class="nav-link" href="#">
                       <span data-feather="home">User</span>
                     </a>
-              </router-link>
+              </router-link>  -->
              <router-link to="/gen"  tag="li"  class="nav-item" >
                     <a class="nav-link" href="#">
                       <span data-feather="home">Generate Label</span>
@@ -104,6 +104,11 @@
              'checkUserRole'
         ]),
     },
+    methods: {
+    logOut() {
+      this.$store.dispatch("authLogOut");
+    },
+  },
   }
  
 </script>

@@ -1,6 +1,6 @@
 <template>
-<div class="container">
-<main class="form-signin" style="margin-top: 100px;" >
+<div class="container" >
+<main class="form-signin" style="margin-top: 100px;">
   <div v-if="errMssg">
       <div v-if="getErrMssg ==='Network Error'" class="alert-user">
           <div class="alert alert-danger">
@@ -19,15 +19,19 @@
           </div>
       </div>
   </div>
-  <form @submit.prevent="onSubmit">
-    <h1 class="h3 mb-3 fw-normal text-center">Sign in</h1>
+  <div style=" ">
+    <div class="mb-2" style="text-align: center">
+      <img :src="require('../assets/logo-2.png')"/>
+    </div>
+   <!-- <h1 style="color: green; text-align: center; margin-bottom: 10px">Exqship</h1>  -->
+  <form @submit.prevent="onSubmit" >
+    <h1 class="h4 mb-3 fw-normal text-center">Sign in</h1>
     <div class="form-floating mt-4 mb-4">
       <input type="text" class="form-control" 
       id="floatingInput" placeholder="name@example.com" 
       v-model="username">
       <label for="floatingInput">Username</label>
     </div>
-    <div>{{username}}</div>
     <div class="form-floating mt-3">
       <input type="password" class="form-control" id="floatingPassword"
        placeholder="Password" v-model="password">
@@ -46,6 +50,7 @@
     <button v-else class="w-100 btn btn-lg" type="submit" style="background: #142440; color: white" @click="onSubmit">Sign in</button>
  
   </form>
+  </div>
 </main>
 </div>
 </template>
@@ -90,9 +95,11 @@ export default {
 
 .form-signin {
   width: 100%;
-  max-width: 330px;
-  padding: 15px;
+  max-width: 430px;
+  padding: 40px 25px;
   margin: auto;
+  border: 1px solid #f5f5f5;
+  border-radius: 3px;
 }
 
 .form-signin .checkbox {

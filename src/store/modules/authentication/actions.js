@@ -11,9 +11,11 @@ export const authLogin = ({commit, dispatch}, authData) => {
         const user = res.data
         localStorage.setItem('token', user.key)
         localStorage.setItem('username', authData.username)
-        commit('authSuccess', user)
+        commit('authSuccess', user.key)
         dispatch('authStopLoading')
-        router.push({name: 'Dashboard'})
+        // router.push({name: 'dashboard'})
+        router.push('/dashboard')
+        
          
     })
     .catch(err => {
@@ -72,7 +74,7 @@ export const removeStateErr = ({commit}) =>{
 }
 
 export const logout = () => {
-    localStorage.removeItem('token')
+    localStorage.clear()
     // localStorage.removeItem('signup-email')
     // localStorage.removeItem('verfied')
     delete axios.defaults.headers.common['Authorization']

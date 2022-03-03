@@ -3,23 +3,36 @@
 <header>
   <div class="container-fluid fixed-top">
     <div class="row" style="background: #142440">
-        <div class="navbar navbar-expand-md navbar-dark row" style="margin-left: 50px">
-            <div class="col-md-9">
-            <span style="color: white;">
-                <i class="fa fa-clock-o" aria-hidden="true" style="color: blue; margin-right: 10px"></i>Mon - Tues : 6.00 am - 10.00 pm, Sunday Closed
-            </span>
+        <div class="navbar navbar-expand-md  navbar-dark me-5 ms-5" style="height: 50px">
+            <div class="col-10">
+              <span style="color: white;">
+                  <i class="fa fa-clock-o" aria-hidden="true" style="color: blue;"></i>Mon - Tues : 6.00 am - 10.00 pm, Sunday Closed
+              </span>
             </div>
-            <div class="col-3" style="color: white">
-            <ul class="nav"> 
-              <router-link to="/login"  tag="li"  class="nav-item" >
-                    <a class="nav-link" href="#" style="color: white">Dashboard</a>
+            <div class="col-md-2 d-none d-sm-none d-md-block me-2" style="color:">
+              <ul class="nav"> 
+                <router-link v-if="!isAuthenticated" to="/login"  tag="li"  class="nav-item" >
+                      <button class="btn btn-primary " >
+                        <a class="nav-link header-btn" href="#" style="color: white; ">Log in</a>
+                      </button>
                 </router-link>
-                <router-link to="/login"  tag="li"  class="nav-item" >
-                    <a class="nav-link" href="#" style="color: white">Login</a>
-                </router-link>
-               
-            </ul>
-            </div>
+                <div v-else class="dropdown">
+                  <button class="btn btn-secondary  dropdown-toggle header-btn" style="width: 90px"  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class=" ">
+                      <img :src="require('../assets/bx_bx-user-circle.png')" class="user-circle" alt="user circle"/>
+                    </span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <router-link to="/dashboard" class="dropdown-item" tag="li" style="color: black; text-decoration: none">
+                      Dashboard 
+                    </router-link>
+                    
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                     <li ><a  class="dropdown-item" href="#" @click="logOut" style="text-decoration: none">Sign Out </a></li>
+                  </ul>
+                </div>
+              </ul>
+          </div>
         </div>
     </div> 
     <nav class="navbar navbar-expand-md navbar-dark row " style="background: white;">
@@ -27,27 +40,36 @@
         <button class="navbar-toggler" type="button" style="color: black; background: #142440; margin-top: 10px" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <span class="navbar-toggler" style="margin: 0 auto;"><img :src="require('../assets/logo-2.png')"/></span>
-        <div class="collapse navbar-collapse" id="navbarCollapse" style="margin: 0 50px">
-            <span style="margin-right: 150px">
-              <span> <img :src="require('../assets/logo-2.png')"/></span>
-            </span>
-            <span>
-                <span style="color: black; margin: 0 10px">
+        <span class="navbar-toggler" style="margin: 0 auto;">
+          <img :src="require('../assets/logo-2.png')"/>
+        </span>
+     
+        <div class="collapse navbar-collapse " id="navbarCollapse" style="margin: 0 50px">
+            <div class="col-4">
+              <span class="d-none d-md-block"> <img :src="require('../assets/logo-2.png')"/></span>
+            </div>
+            <div class="col-8 my-nav"  style="color: black;">
+              <div class="">
+                <span class="p-2 custom-nav-exqship">
                     Home
                 </span>
-                <span style="color: black; margin: 0 10px">
+                <span class="p-2 custom-nav-exqship" style="color: black;">
                     About
                 </span>
-                <span style="color: black; margin: 0 10px">
-                    Our Services
+                <span class="p-2 custom-nav-exqship" style="color: black;">
+                    Features
                 </span>
-                <span style="color: black; margin: 0 10px">
-                  <router-link to="/dashboard" style="color: black">
-                    Dashboard 
-                  </router-link>
+                <span class="p-2 custom-nav-exqship" style="color: black;">
+                    Testimonials
                 </span>
-              </span>
+                <span class="p-2 custom-nav-exqship" style="color: black;">
+                     FAQ
+                </span>
+                 <span class="p-2 custom-nav-exqship" style="color: black;">
+                     Contact Us
+                </span>
+            </div>
+        </div>
         </div>
         </div>
     </nav>
@@ -65,9 +87,9 @@
          <img :src="require('../assets/2.jpg')"/>
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>Example headline.</h1>
-            <p>Some representative placeholder content for the first slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+            <h1 style="text-transform : capitalize;">Logistics Solution at its best</h1>
+            <p>Our service is a top-notch. Patronize us today, and you will be glad you did.</p>
+            <p><a class="btn btn-lg btn-primary" style="text-transform: capitalize; text-decoration: none " href="#">Get started</a></p>
           </div>
         </div>
       </div>
@@ -112,20 +134,20 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
       <div class="col-lg-4">
-        <h2>Heading</h2>
-        <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+        <h2>Safe Deliveries</h2>
+        <p>Your goods are safe with us. All our vehicle are insured, so you goods are safe with us.</p>
         <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
          <!-- <img :src="require('../assets/air.jpg')" /> -->
-        <h2>Heading</h2>
-        <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
+        <h2>Prompt Deliveries</h2>
+        <p>We value all of our customers, so we make sure your goods are delivered on or before the stipulated time.</p>
         <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
          <!-- <img :src="require('../assets/air.jpg')" /> -->
-        <h2>Heading</h2>
-        <p>And lastly this, the third column of representative placeholder content.</p>
+        <h2>Low Charges</h2>
+        <p>With our 30% discount, you can save more and move your goods at at small fee.</p>
         <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
@@ -137,8 +159,10 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-        <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+        <h2 class="featurette-heading">Sweet Experience.</h2>
+        <p class="lead">Doing business with us will give a wonderfull experince. Our workers are friendly and are always ready to provide you with a Solution.
+          Our customer care operates 24 hours every day. 
+        </p>
       </div>
       <div class="col-md-5">
          <img :src="require('../assets/doorstep.png')" />
@@ -149,8 +173,8 @@
 
     <div class="row featurette">
       <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+        <h2 class="featurette-heading">Tracking System</h2>
+        <p class="lead">You can keep a track on your goods to know its status. Our service is very transparent. </p>
       </div>
       <div class="col-md-5 order-md-1">
          <img :src="require('../assets/doorstep.png')" />
@@ -182,11 +206,34 @@
 </main>
 </div>
 </template>
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed : {
+    ...mapGetters([
+            'isAuthenticated',
+          
+        ]),
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch("authLogOut");
+    },
+  },
+}
+</script>
  <style scoped>
+ .header-btn{
+   width: 100%;
+   padding: 0.0001rem;
+ }
+ .user-circle {
+  width: 35px;
+}
  a {
      text-decoration: none;
  }
- 
+  
 .nav-link {
   text-decoration: none;
 }
@@ -269,17 +316,30 @@
     margin-top: 7rem;
   }
 }
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 748px) {
+  
+    .custom-nav-exqship {
+      display: block;
+    }
+
+    .my-nav {
+      margin-left: -40px;
+    }
+
+}
 </style>

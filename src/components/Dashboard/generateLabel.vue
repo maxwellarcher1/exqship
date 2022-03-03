@@ -91,18 +91,18 @@
             <div class="pb-2 mb-3 border-bottom ">
                 <div class="d-flex justify-content-center">
                     <ul class="list-group list-group-horizontal">
-                        <router-link to="/gen"  tag="li"  class="list-group-item" exact-active-class="active" >
-                                <a class="nav-link"  style="color: black" aria-current="page" href="#">Priority</a>
+                        <router-link to="/gen"  tag="li"  class="list-group-item" exact-active-class="active" style="z-index : 1" >
+                                <a class="nav-link"  style="color: black" aria-current="page" href="#" >Priority</a>
                         </router-link>
                         
-                        <router-link to="/priority/sig" tag="li"  class="list-group-item" active-class="active" >
+                        <router-link to="/priority/sig" tag="li"  class="list-group-item" active-class="active" style="z-index : 1">
                                 <a class="nav-link" href="#" style="color: black">Priority with Sig </a>
                         </router-link>
 
-                        <router-link to="/express"  tag="li"  class="list-group-item" active-class="active">
+                        <router-link to="/express"  tag="li"  class="list-group-item" active-class="active" style="z-index : 1">
                                 <a class="nav-link" href="#" style="color: black">Express</a>
                         </router-link>
-                        <router-link to="/express/sig"  tag="li"  class="list-group-item" active-class="active">
+                        <router-link to="/express/sig"  tag="li"  class="list-group-item" active-class="active" style="z-index : 1">
                                 <a class="nav-link" href="#" style="color: black">Express with Sig</a>
                         </router-link>
                     </ul>
@@ -139,6 +139,8 @@ export default {
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
   height: 500px;
 }
+
+ 
     .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;

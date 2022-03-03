@@ -63,6 +63,9 @@ export default {
     },
     created(){
         let token = this.$store.getters.getToken;
+        // console.log(token)
+        // let token = localStorage.getItem('token') 
+        // let token =  this.getToken
         const config = {
                 headers: { 'Authorization': `Token ${token}`}
             };
@@ -103,11 +106,8 @@ export default {
         .catch(err => {
             console.log(err)
         })
-
-
-
-
-    }
+    },
+    
 }
 </script>
 

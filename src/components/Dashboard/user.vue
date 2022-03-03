@@ -162,7 +162,6 @@
                     </div>
                 </div>
                 </div>
-
                  <!-- Modal -->
                 <!-- change password section -->
                 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
