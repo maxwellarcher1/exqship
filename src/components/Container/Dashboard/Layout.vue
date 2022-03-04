@@ -37,11 +37,11 @@
                       <span data-feather="home">Dashboard</span>
                     </a>
             </router-link>
-             <!-- <router-link v-if="checkUserRole === 'admin'" to="/user"  tag="li"  class="nav-item" >
+             <router-link v-if="checkUserRole === 'admin'" to="/user"  tag="li"  class="nav-item" >
                     <a class="nav-link" href="#">
                       <span data-feather="home">User</span>
                     </a>
-              </router-link>  -->
+              </router-link> 
              <router-link to="/gen"  tag="li"  class="nav-item" >
                     <a class="nav-link" href="#">
                       <span data-feather="home">Generate Label</span>
