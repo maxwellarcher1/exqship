@@ -50,4 +50,7 @@ export const initialUserSignUpStatus = (state) => {
     state.signUpSuccess = null 
 }
 
+export const userRoleType = (state, userType) => {
+    state.userRole = userType 
+}
 

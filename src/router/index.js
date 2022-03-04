@@ -104,8 +104,8 @@ const routes = [
             {path: '/number/express/sig', component: expressSigList}
         ]
       },
-      {path: '/redirect-me', redirect: { name: 'Home'}},
-      {path: '*', redirect: '/'}
+      // {path: '/redirect-me', redirect: { name: 'Home'}},
+      // {path: '*', redirect: '/'}
       
     ]
   },

@@ -11,6 +11,7 @@ export const authLogin = ({commit, dispatch}, authData) => {
         const user = res.data
         localStorage.setItem('token', user.key)
         localStorage.setItem('username', authData.username)
+        commit('userRoleType', authData.username)
         commit('authSuccess', user.key)
         dispatch('authStopLoading')
         // router.push({name: 'dashboard'})
