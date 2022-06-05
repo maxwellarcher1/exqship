@@ -179,9 +179,9 @@
       <div class="col-md-5 order-md-1">
          <img :src="require('../assets/doorstep.png')" />
       </div>
-       <button @click="testing()">Test now</button>
+       <!-- <button @click="testing()">Test now</button>
        <img :src="imgsrc" alt="" srcset="">
-        <img :src="imgsrc" alt="" id="me">
+        <img :src="imgsrc" alt="" id="me"> -->
     </div>
     <!-- <hr class="featurette-divider">
     <div class="row featurette">
