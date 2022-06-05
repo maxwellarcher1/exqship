@@ -1,16 +1,16 @@
 export const checkUserRole = (state) => {
     return state.userRole
 }
-export const studentAuth = (state) =>{
+export const studentAuth = (state) => {
     return state.token 
 }
-export const loading = (state) =>{
+export const loading = (state) => {
     return state.loading
 } 
-export const errMssg = (state) =>{
+export const errMssg = (state) => {
     return state.error
 }
-export const getErrMssg = (state) =>{
+export const getErrMssg = (state) => {
     return state.errMessage
 }
 export const isAuthenticated = (state) => {

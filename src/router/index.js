@@ -13,12 +13,14 @@ import trackingCount from "../components/Dashboard/trackingCount";
 // import user from "../components/Dashboard/user";
 import userData from "../components/UserContainer/userData"
 import billing from "../components/Dashboard/billing";
+// import billing from "../components/Dashboard/billing";
 import Home from "../views/Home";
 import Login from "../views/Login";
 import uploadNumber from "../components/uploadNumberContainer/uploadNumber";
 // import uploadTracking from "../components/Dashboard/uploadTracking"
 import Dashboard from "../views/Dashboard.vue";
 import trackingList from "../components/Dashboard/trackingList"
+// import check from "../components/Dashboard/check"
 import priorityList from "../components/NumberListContainer/priorityList"
 import expressSigList from "../components/NumberListContainer/expressSigList"
 import expressList from "../components/NumberListContainer/expressList"
@@ -31,7 +33,7 @@ import store from '../store/store'
 
 const routes = [
   // {
-  //   path: "/priority", name: "generateLabel",  components: { default:  generateLabel}, children: [
+  //   path: "/priority", name: "generateLabel",  components: { default:  generateLabel}, children: [ 
   //       {path: '', component: priority},
   //       {path: '/priority/sig', component: priorityWithSig},
   //       {path: '/express', component: express},
@@ -53,6 +55,11 @@ const routes = [
     name: "Login",
     component: Login,
   },
+  // {
+  //   path: "/checking",
+  //   name: "check",
+  //   component: check,
+  // },
   
   // {
   //   path: "/test",
@@ -109,7 +116,6 @@ const routes = [
       
     ]
   },
-
 ];
 
 const router = createRouter({

@@ -267,12 +267,12 @@ export default {
             // this.uploading = false
             // this.forceUpdatenow()
             
-        //   const formData = {
-        //       username : this.username,
-        //       password : this.password
-        //   }
-        //   console.log(formData)
-        //   this.$store.dispatch('authLogin', {username : formData.username, password : formData.password})  
+            //   const formData = {
+            //       username : this.username,
+            //       password : this.password
+            //   }
+            //   console.log(formData)
+            //   this.$store.dispatch('authLogin', {username : formData.username, password : formData.password})  
       }, 
       onSubmitExpress(){
             this.uploadingExpress = true

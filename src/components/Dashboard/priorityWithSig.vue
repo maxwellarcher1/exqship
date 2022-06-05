@@ -600,7 +600,7 @@ export default {
                         console.log(barcodeChar)
                         
                         self.barc = barcodeChar
-                        self.imgSrc = `http://free-barcode.com/barcode.asp?bc1=${barcodeChar}&bc2=12&bc3=4.72&bc4=1.2&bc5=0&bc6=1&bc7=Arial&bc8=14&bc9=1`
+                        self.imgSrc = `https://corsproxy.io/?http://free-barcode.com/barcode.asp?bc1=${barcodeChar}&bc2=12&bc3=4.72&bc4=1.2&bc5=0&bc6=1&bc7=Arial&bc8=14&bc9=1`
                                 console.log(err, 'we')
                         }
 
@@ -654,7 +654,7 @@ export default {
                 console.log(barcodeChar)
                 
                 this.barc = barcodeChar
-                this.imgSrc = `http://free-barcode.com/barcode.asp?bc1=${barcodeChar}&bc2=12&bc3=4.72&bc4=1.2&bc5=0&bc6=1&bc7=Arial&bc8=14&bc9=1`
+                this.imgSrc = `https://corsproxy.io/?http://free-barcode.com/barcode.asp?bc1=${barcodeChar}&bc2=12&bc3=4.72&bc4=1.2&bc5=0&bc6=1&bc7=Arial&bc8=14&bc9=1`
             }
         
                      

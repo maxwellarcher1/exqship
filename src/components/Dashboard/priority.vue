@@ -184,6 +184,9 @@
                             <button v-if="loadImage" style="color: white" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Preview
                             </button>
+                            <!-- <router-link :to="{ name: 'check'}" target="_blank">
+                                Link Text
+                            </router-link> -->
                          </div>
                           <div class="col-6">
                                 <button class="btn-primary" type="submit" style="width: 120px; height: 40px; color: white; border-radius: 5px">Submit</button>
@@ -283,9 +286,9 @@
     <!-- Modal -->
 <div class="modal fade border-0" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding: 20px;">
   <div class="modal-dialog"  >
-    <div class="modal-content border-0 rounded-0" style="width:506px; "  >
+    <div class="modal-content border-0 rounded-0" style="width:506px;">
           <div id="test" style= "width: 506px">
-                <img :src="require('../../assets/Priority.jpg')"> 
+                <img :src="require('../../assets/Priority.jpg')" style="width: 100%; height: auto"> 
                 <div style="all: initial;">
                  <div style="position: absolute; top: 186px; left: 10px; right: 180px; text-transform: uppercase; font-size: 14pt; font-weight: 500" >
                     <div>{{senderInfo.fullName}}</div>
@@ -295,6 +298,7 @@
                 </div>  
                  <div style="position: absolute; top: 186px; right: 12px; font-size: 14pt;" >
                     <div dir="rtl">Ship Date<span>:</span>{{todayDate()}}</div>
+                    <!-- <div dir="rtl" style="width: 300px">Ship Date<span>:</span>03/22/22</div> -->
                     <div  dir="rtl" style="padding-right: 2px; z-index: 1;">Weight<span>:</span> {{parcelWeight}} lb</div>
                 </div> 
                 <div>
@@ -319,7 +323,7 @@
                 <div style="position: absolute; top: 566px; left: 26px; ">
                     <img :src="imgSrc" alt="" id="me" @load="checkLoadedImage()">
                 </div>
-                <div style="position: absolute; top: 686px; left: 102px; font-size: 14pt; font-weight: 700">
+                <div style="position: absolute; top: 686px; left: 102px; font-size: 14pt; font-weight: 700;">
                     {{trackingNo}}
                 </div>
                 </div>  
@@ -342,7 +346,8 @@
     </div>
     </div>
   </div>
-</div>
+</div> 
+
 </div>
 </template> 
 <script>
@@ -350,13 +355,17 @@ import axios from 'axios'
 
 // import domtoimage from 'dom-to-image-improved'
 import domtoimage from 'dom-to-image'
+// import {elementToSVG, inlineResources} from 'dom-to-svg'
+// import domtoimage from 'dom-to-image-more';
+// import printJS from 'print-js'
 // import Canvg from 'canvg'
 // import domtoimage from 'dom-to-image-chrome-fix-retina'
-// import 'svg2pdf.js'
+// import 'svg2pdf.js'----------------------------
 import { jsPDF } from "jspdf"
 // import { changeDpiDataUrl } from 'changedpi'
 // import loadImage from "blueimp-load-image"
 // import download from 'downloadjs'
+// import printJS from 'print-js'
 // import {  elementToSVG, inlineResources } from 'dom-to-svg'
 // import html2pdf from 'html2pdf.js'
 // import * as htmlToImage from 'html-to-image';
@@ -563,44 +572,53 @@ export default {
         },
         getLabel(){
             this.downloadButtonClicked = true
-            let x = document.getElementById('test')
+            let x = document.getElementById('test') 
+
             // window.print(x)
+            // printJS({
+            //     printable: x,
+            //     type: "html",
+            //     style: ".heavy {font-weight: 800;}"
+            // })
             let label_size = this.size
+        
 
             var options = {
-                quality: 0.98,
-            };
-            
+                quality: 1,
+                }
+        
             let pdfFilename = this.senderInfo.fullName
+            
 
             domtoimage.toJpeg(x, options).then(function (dataUrl)
-            {    
-                
+            { 
                 if (label_size === 'a6'){
-                    // //4x6 size
+                    //4x6 size
                     var doc = new jsPDF("p", "in", [5.27, 7.98])
                     var filename = `${pdfFilename}`
                     var width = doc.internal.pageSize.getWidth();
                     var height = doc.internal.pageSize.getHeight()
                     doc.addImage(dataUrl, 'JPEG', 0, 0, width, height);
                     doc.save(filename)
-                    
+                    // https://html2pdf.app/
                 //     // let z = changeDpiDataUrl(dataUrl, 150)
-                //     // download(dataUrl, 'my-node')
+                    // console.log(dataUrl)
+                  
+                    // download(dataUrl, 'my-node')
 
                 }else {
                     // Letter size
                     var docu = new jsPDF("l", "in", [11.00, 8.50])
                     var filenamess = `${pdfFilename}`
-                    // console.log(doc.internal.scaleFactor)
+                    // console.log(doc.internal.scaleFactor)l
                     // doc.setDrawColor(0, 0, 0, 0)
                     // doc.internal.scaleFactor = 500.00
                     docu.addImage(dataUrl, 'JPEG', 3.82, 0.47, 6.19, 7.83);
                     docu.save(filenamess);
 
                 }                 
-            });
-            this.deleteSelectedTracking()
+            })
+           this.deleteSelectedTracking()
 
         },
         sortSender(){
@@ -687,12 +705,10 @@ export default {
                         console.log(barcodeChar)
                         
                         self.barc = barcodeChar
-                        self.imgSrc = `http://free-barcode.com/barcode.asp?bc1=${barcodeChar}&bc2=12&bc3=4.72&bc4=1.2&bc5=0&bc6=1&bc7=Arial&bc8=14&bc9=1`
+                        self.imgSrc = `https://corsproxy.io/?http://free-barcode.com/barcode.asp?bc1=${barcodeChar}&bc2=12&bc3=4.72&bc4=1.2&bc5=0&bc6=1&bc7=Arial&bc8=14&bc9=1`
                                 console.log(err, 'we')
                                 console.log(self.imgSrc)
-                        }
-
-                                
+                        }                              
                 })
             })
             .catch(err => console.log(err))
@@ -741,7 +757,7 @@ export default {
                 console.log(barcodeChar)
                 
                 this.barc = barcodeChar
-                this.imgSrc = `http://free-barcode.com/barcode.asp?bc1=${barcodeChar}&bc2=12&bc3=4.72&bc4=1.2&bc5=0&bc6=1&bc7=Arial&bc8=14&bc9=1`
+                this.imgSrc = `https://corsproxy.io/?http://free-barcode.com/barcode.asp?bc1=${barcodeChar}&bc2=12&bc3=4.72&bc4=1.2&bc5=0&bc6=1&bc7=Arial&bc8=14&bc9=1`
             }
         
                      

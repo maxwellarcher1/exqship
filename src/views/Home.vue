@@ -179,6 +179,9 @@
       <div class="col-md-5 order-md-1">
          <img :src="require('../assets/doorstep.png')" />
       </div>
+       <button @click="testing()">Test now</button>
+       <img :src="imgsrc" alt="" srcset="">
+        <img :src="imgsrc" alt="" id="me">
     </div>
     <!-- <hr class="featurette-divider">
     <div class="row featurette">
@@ -208,17 +211,36 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import axios from 'axios'
 export default {
   computed : {
+    data(){
+      return {
+        imgsrc : ''
+      }
+
+    },
     ...mapGetters([
-            'isAuthenticated',
-          
+            'isAuthenticated',    
         ]),
   },
   methods: {
     logOut() {
       this.$store.dispatch("authLogOut");
     },
+    testing() {
+       console.log('hi')
+       
+       axios.get('http://free-barcode.com/barcode.asp?bc1=123456789999&bc2=10&bc3=3.6&bc4=1.3&bc5=1&bc6=1&bc7=Arial&bc8=15&bc9=1',)
+       .then((res) => {
+         console.log(res)
+          this.imgsrc = res.config.url
+         
+       }).catch((err) => {
+         console.log(err)
+         
+       });
+    }
   },
 }
 </script>
